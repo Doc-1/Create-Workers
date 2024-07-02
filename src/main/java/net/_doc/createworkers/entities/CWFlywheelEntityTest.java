@@ -2,13 +2,9 @@ package net._doc.createworkers.entities;
 
 import java.util.List;
 
-import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
-import com.simibubi.create.foundation.utility.Lang;
-
 import net.minecraft.BlockUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -21,14 +17,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class CWFlywheelEntityTest extends Entity implements IHaveGoggleInformation {
+public class CWFlywheelEntityTest extends Entity {
 
 	private float chasingVelocity = 0;
 	private float independentAngle = 0;
-	private float lerpSteps;
-	private double lerpX;
-	private double lerpY;
-	private double lerpZ;
+	public float lerpSteps;
+	public double lerpX;
+	public double lerpY;
+	public double lerpZ;
+
+	private boolean entityCollision = false;
 
 	protected CWFlywheelEntityTest(EntityType<? extends Entity> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
@@ -67,9 +65,11 @@ public class CWFlywheelEntityTest extends Entity implements IHaveGoggleInformati
 		if (pEntity instanceof CWFlywheelEntityTest) {
 			if (pEntity.getBoundingBox().minY < this.getBoundingBox().maxY) {
 				super.push(pEntity);
+				this.entityCollision = true;
 			}
 		} else if (pEntity.getBoundingBox().minY <= this.getBoundingBox().minY) {
 			super.push(pEntity);
+			this.entityCollision = true;
 		}
 
 	}
@@ -80,7 +80,8 @@ public class CWFlywheelEntityTest extends Entity implements IHaveGoggleInformati
 		chasingVelocity += ((20 * 10 / 3f) - chasingVelocity) * .25f;
 		independentAngle += chasingVelocity;
 		tickLerp();
-		this.move(MoverType.SELF, new Vec3(0.05, -0.3, 0));
+		if (!this.entityCollision)
+			this.move(MoverType.SELF, new Vec3(0.05, -0.4, 0));
 
 		this.checkInsideBlocks();
 		List<Entity> list = this.level().getEntities(this,
@@ -93,10 +94,11 @@ public class CWFlywheelEntityTest extends Entity implements IHaveGoggleInformati
 				Entity entity = list.get(j);
 				if (flag && entity instanceof Player) {
 					this.push(entity);
-				}
-
+				} else
+					this.entityCollision = false;
 			}
-		}
+		} else
+			this.entityCollision = false;
 	}
 
 	private void tickLerp() {
@@ -124,12 +126,6 @@ public class CWFlywheelEntityTest extends Entity implements IHaveGoggleInformati
 
 	public float getIndependentAngle(float partialTicks) {
 		return (independentAngle + partialTicks * chasingVelocity) / 360;
-	}
-
-	@Override
-	public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-		tooltip.add(Lang.number(10).component());
-		return true;
 	}
 
 	@Override

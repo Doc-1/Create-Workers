@@ -59,7 +59,6 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 		TransformStack tstack = TransformStack.cast(stack);
 		stack.setIdentity();
 		float pt = AnimationTickHolder.getPartialTicks();
-
 		tstack.translate(Mth.lerp(pt, entity.xOld, entity.getX()) - partOffset().x,
 				Mth.lerp(pt, entity.yOld, entity.getY()) - partOffset().y,
 				Mth.lerp(pt, entity.zOld, entity.getZ()) - partOffset().z);
