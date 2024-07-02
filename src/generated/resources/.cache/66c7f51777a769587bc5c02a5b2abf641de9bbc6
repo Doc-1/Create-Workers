@@ -1,0 +1,9 @@
+// 1.20.1	2024-07-01T12:35:29.4601174	Registrate Provider for create_workers [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+6b40d78ead085ec7fbdbd079107ab600ebcb6055 assets/create_workers/blockstates/temp_block.json
+204a4cf8b6ec9ac4fee2a14d59fa61e4d9bfef39 assets/create_workers/lang/en_ud.json
+c58d6c571e2900417ecac81d2abcc40c2669820a assets/create_workers/lang/en_us.json
+48a85389f56258882fe045d04348263888cac1f9 assets/create_workers/models/block/temp_block.json
+61b0bb78b1668a9cae93374a0166c10f6c1c223a assets/create_workers/models/item/temp_block.json
+1d7459de020c2b1592834955a6469b55d8f2c50d data/create_workers/loot_tables/blocks/temp_block.json
+c33c5f47ff573172824e5c16060981001f626ba7 data/forge/tags/blocks/needs_netherite_tool.json
+c33c5f47ff573172824e5c16060981001f626ba7 data/minecraft/tags/blocks/mineable/pickaxe.json

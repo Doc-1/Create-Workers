@@ -1,0 +1,13 @@
+{
+  "type": "create:haunting",
+  "ingredients": [
+    {
+      "item": "create_workers:temp_block"
+    }
+  ],
+  "results": [
+    {
+      "item": "create:andesite_casing"
+    }
+  ]
+}
