@@ -9,12 +9,8 @@ import net._doc.createworkers.blocks.CWBlocks;
 import net._doc.createworkers.entities.CWEntities;
 import net._doc.createworkers.items.CWCreativeModeTab;
 import net._doc.createworkers.items.CWItems;
-import net.minecraft.core.dispenser.BoatDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -75,8 +71,6 @@ public class CreateWorkers {
 	public void onServerStarting(ServerStartingEvent event) {
 		// Do something when the server starts
 		LOGGER.info("HELLO from server starting");
-
-		DispenserBlock.registerBehavior(Items.OAK_BOAT, new BoatDispenseItemBehavior(Boat.Type.OAK));
 
 	}
 
