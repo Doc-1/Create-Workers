@@ -2,6 +2,7 @@ package net._doc.createworkers.entities;
 
 import java.util.List;
 
+import net._doc.createworkers.entities.controller.EntityController;
 import net._doc.createworkers.items.CWItems;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.Direction;
@@ -15,7 +16,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.GameRules;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
-public class NonLivingEntity extends Entity {
+public abstract class NonLivingEntity extends Entity {
 	private static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(NonLivingEntity.class,
 			EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> DATA_ID_HURTDIR = SynchedEntityData.defineId(NonLivingEntity.class,
@@ -36,22 +36,20 @@ public class NonLivingEntity extends Entity {
 	public double lerpY;
 	public double lerpZ;
 
-	private boolean entityCollision = false;
+	protected EntityController controller;
+	protected boolean entityCollision = false;
 
 	protected NonLivingEntity(EntityType<? extends Entity> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
 		this.blocksBuilding = true;
-
+		this.controller = setController();
 	}
+
+	public abstract EntityController setController();
 
 	@Override
 	public boolean canBeCollidedWith() {
 		return true;
-	}
-
-	@Override
-	protected Entity.MovementEmission getMovementEmission() {
-		return Entity.MovementEmission.EVENTS;
 	}
 
 	@Override
@@ -89,6 +87,8 @@ public class NonLivingEntity extends Entity {
 			this.setDamage(this.getDamage() - 1.0F);
 
 		super.tick();
+		tickLerp();
+		this.checkInsideBlocks();
 
 		List<Entity> list = this.level().getEntities(this,
 				this.getBoundingBox().inflate((double) 0.2F, (double) -0.01F, (double) 0.2F),
@@ -105,12 +105,7 @@ public class NonLivingEntity extends Entity {
 			}
 		} else
 			this.entityCollision = false;
-
-		tickLerp();
-		if (!this.entityCollision)
-			this.move(MoverType.SELF, new Vec3(0.05, -0.4, 0));
-
-		this.checkInsideBlocks();
+		this.controller.tick();
 	}
 
 	private void tickLerp() {
