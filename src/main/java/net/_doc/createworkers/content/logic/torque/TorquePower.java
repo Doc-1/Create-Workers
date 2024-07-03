@@ -1,11 +1,11 @@
 package net._doc.createworkers.content.logic.torque;
 
 public class TorquePower {
-	public final int maxTorque;
-	public int currentTorque = 100;
-	public final int cost;
+	public final double maxTorque;
+	public double currentTorque = 100;
+	public final double cost;
 
-	public TorquePower(int maxTorque, int cost) {
+	public TorquePower(double maxTorque, double cost) {
 		this.maxTorque = maxTorque;
 		this.cost = cost;
 	}
@@ -14,9 +14,10 @@ public class TorquePower {
 		return currentTorque - cost >= 0;
 	}
 
-	public void tick() {
-		if (hasEnoughTorque())
-			currentTorque -= cost;
+	public void tick(double distanceTravled) {
+		if (hasEnoughTorque()) {
+			currentTorque -= cost * Math.abs(distanceTravled);
+		}
 	}
 
 }
