@@ -36,16 +36,16 @@ public abstract class NonLivingEntity extends Entity {
 	public double lerpY;
 	public double lerpZ;
 
-	protected EntityController controller;
+	protected EntityController controller = new EntityController(this);
 	protected boolean entityCollision = false;
 
 	protected NonLivingEntity(EntityType<? extends Entity> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
 		this.blocksBuilding = true;
-		this.controller = setController();
+		setControllerActions();
 	}
 
-	public abstract EntityController setController();
+	public abstract void setControllerActions();
 
 	@Override
 	public boolean canBeCollidedWith() {
@@ -105,7 +105,7 @@ public abstract class NonLivingEntity extends Entity {
 			}
 		} else
 			this.entityCollision = false;
-		this.controller.tick();
+
 	}
 
 	private void tickLerp() {

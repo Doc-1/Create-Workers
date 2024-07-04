@@ -3,21 +3,23 @@ package net._doc.createworkers.content.logic.torque;
 public class TorquePower {
 	public final double maxTorque;
 	public double currentTorque = 100;
-	public final double cost;
+	public final double costMulti;
 
-	public TorquePower(double maxTorque, double cost) {
+	public TorquePower(double maxTorque, double costMulti) {
 		this.maxTorque = maxTorque;
-		this.cost = cost;
+		this.costMulti = costMulti;
 	}
 
-	public boolean hasEnoughTorque() {
-		return currentTorque - cost >= 0;
+	public boolean hasEnoughTorque(double cost) {
+		return currentTorque - cost * costMulti >= 0;
 	}
 
-	public void tick(double distanceTravled) {
-		if (hasEnoughTorque()) {
-			currentTorque -= cost * Math.abs(distanceTravled);
-		}
+	public void cost(double cost) {
+		currentTorque -= cost * costMulti;
+	}
+
+	public boolean isHasTorque() {
+		return currentTorque > 0;
 	}
 
 }

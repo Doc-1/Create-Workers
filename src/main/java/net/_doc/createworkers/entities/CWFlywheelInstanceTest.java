@@ -58,19 +58,23 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 	public void beginFrame() {
 		TransformStack tstack = TransformStack.cast(stack);
 		stack.setIdentity();
-		float pt = AnimationTickHolder.getPartialTicks();
-		double x = Mth.lerp(pt, entity.xOld, entity.getX()) - partOffset().x;
-		double y = Mth.lerp(pt, entity.yOld, entity.getY()) - partOffset().y;
-		double z = Mth.lerp(pt, entity.zOld, entity.getZ()) - partOffset().z;
-		float yaw = (float) Math.toRadians(Mth.lerp(pt, entity.yRotO, entity.getYRot()));
-		float rot = entity.getIndependentAngle(pt);
-		if (!entity.torque.hasEnoughTorque() || entity.isStuck()) {
+
+		float rot, yaw, pt;
+		double x, y, z;
+		if (!entity.getTorquePower().isHasTorque()) {
 			x = entity.getX() - partOffset().x;
 			y = entity.getY() - partOffset().y;
 			z = entity.getZ() - partOffset().z;
 			yaw = (float) Math.toRadians(entity.getYRot());
 			rot = 0;
 			pt = 0;
+		} else {
+			pt = AnimationTickHolder.getPartialTicks();
+			x = Mth.lerp(pt, entity.xOld, entity.getX()) - partOffset().x;
+			y = Mth.lerp(pt, entity.yOld, entity.getY()) - partOffset().y;
+			z = Mth.lerp(pt, entity.zOld, entity.getZ()) - partOffset().z;
+			yaw = (float) Math.toRadians(Mth.lerp(pt, entity.yRotO, entity.getYRot()));
+			rot = entity.getIndependentAngle(pt);
 		}
 		tstack.translate(x, y, z);
 		model2.loadIdentity().setTransform(stack).centre()
