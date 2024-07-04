@@ -6,6 +6,7 @@ import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 
 import net._doc.createworkers.content.logic.torque.TorquePower;
 import net._doc.createworkers.entities.controller.actions.MoveAction;
+import net._doc.createworkers.entities.controller.actions.RotateAction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -38,8 +39,9 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
 
 	@Override
 	public void setControllerActions() {
-		this.controller.add(new MoveAction(10));
-
+		this.controller.add(new MoveAction(3));
+		this.controller.add(new RotateAction(1000F));
+		this.controller.add(new MoveAction(5));
 	}
 
 	@Override

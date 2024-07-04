@@ -9,7 +9,6 @@ public class MoveAction implements Action {
 
 	private final double distance;
 	private double distanceTraveled;
-	private Vec3 startingPos = null;
 
 	public MoveAction(double distance) {
 		this.distance = distance;
