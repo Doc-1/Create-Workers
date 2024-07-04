@@ -32,7 +32,7 @@ public class EntityController {
 	}
 
 	public void tick() {
-		if (steps.size() >= selectedIndex) {
+		if (steps.size() > selectedIndex) {
 			CWFlywheelEntityTest entity = (CWFlywheelEntityTest) this.entity;
 			Action action = steps.get(selectedIndex);
 			if (entity.getTorquePower().hasEnoughTorque(action.torqueCost())) {
@@ -40,7 +40,6 @@ public class EntityController {
 					action.start(entity);
 				if (action.hasCompleted()) {
 					action.end(entity);
-
 					selectedIndex++;
 				}
 			}

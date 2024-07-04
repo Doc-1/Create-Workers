@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 public abstract class Worker extends NonLivingEntity implements IHaveGoggleInformation {
 
@@ -50,6 +51,8 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
 			if (stuckTicks >= 60 && this.alarmTickDelay <= this.alarmTicks) {
 				this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.NOTE_BLOCK_PLING.get(),
 						this.getSoundSource(), 1.0F, 0.8F + 0.8F * this.random.nextFloat(), false);
+				this.level().gameEvent(null, GameEvent.NOTE_BLOCK_PLAY, this.blockPosition());
+
 				this.alarmTicks = 0;
 			} else {
 				stuckTicks++;

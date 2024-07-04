@@ -22,14 +22,12 @@ public class MoveAction implements Action {
 
 	@Override
 	public boolean tick(Worker entity) {
-		if (startingPos == null)
-			startingPos = entity.position();
-		return entity.position().distanceTo(startingPos) <= distance;
+		return distanceTraveled <= distance;
 	}
 
 	@Override
 	public boolean hasCompleted() {
-		return false;
+		return distanceTraveled > distance;
 	}
 
 	@Override
@@ -42,13 +40,16 @@ public class MoveAction implements Action {
 		entity.move(MoverType.SELF, entity.getDeltaMovement());
 		double traveled = oldPos.distanceTo(entity.position());
 		distanceTraveled += traveled;
-
+		if (traveled == 0)
+			entity.playJammedAlarm(true);
+		else
+			entity.playJammedAlarm(false);
 		entity.getTorquePower().cost(this.torqueCost() * traveled);
 	}
 
 	@Override
 	public void end(Worker entity) {
-
+		entity.playJammedAlarm(false);
 	}
 
 	@Override
