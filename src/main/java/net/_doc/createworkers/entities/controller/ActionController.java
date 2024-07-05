@@ -3,20 +3,16 @@ package net._doc.createworkers.entities.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import net._doc.createworkers.entities.CWFlywheelEntityTest;
-import net._doc.createworkers.entities.NonLivingEntity;
 import net._doc.createworkers.entities.controller.actions.Action;
 import net.minecraft.util.RandomSource;
 
-public class EntityController {
+public class ActionController {
 
 	protected final RandomSource random = RandomSource.create();
-	public final NonLivingEntity entity;
 	private List<Action> steps = new ArrayList<>();
 	private int selectedIndex = 0;
 
-	public EntityController(NonLivingEntity entity) {
-		this.entity = entity;
+	public ActionController() {
 	}
 
 	public void add(Action action) {
@@ -31,20 +27,20 @@ public class EntityController {
 		this.steps = steps;
 	}
 
-	public void tick() {
+	public boolean tick() {
 		if (steps.size() > selectedIndex) {
-			CWFlywheelEntityTest entity = (CWFlywheelEntityTest) this.entity;
 			Action action = steps.get(selectedIndex);
-			if (entity.getTorquePower().hasEnoughTorque(action.torqueCost())) {
-				if (action.tick(entity))
-					action.start(entity);
+			if (action.getEntity().getTorquePower().hasEnoughTorque(action.torqueCost())) {
+				if (action.tick())
+					action.start();
 				if (action.hasCompleted()) {
-					action.end(entity);
+					action.end();
 					selectedIndex++;
 				}
 			}
+			return false;
 		}
-
+		return true;
 	}
 }
 /*

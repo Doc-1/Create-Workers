@@ -5,12 +5,12 @@ import java.util.List;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 
 import net._doc.createworkers.content.logic.torque.TorquePower;
-import net._doc.createworkers.entities.controller.actions.MoveAction;
-import net._doc.createworkers.entities.controller.actions.RotateAction;
+import net._doc.createworkers.entities.controller.actions.MoveToVecAction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformation {
 
@@ -39,9 +39,10 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
 
 	@Override
 	public void setControllerActions() {
-		this.controller.add(new MoveAction(3));
-		this.controller.add(new RotateAction(1000F));
-		this.controller.add(new MoveAction(5));
+		// this.controller.add(new MoveToVecAction(new Vec3(242, 0, -24)));
+		this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -16.5)));
+		this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -14.5)));
+
 	}
 
 	@Override

@@ -5,12 +5,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.phys.Vec3;
 
-public class MoveAction implements Action {
+public class MoveAction extends Action implements IAction {
 
 	private final double distance;
 	private double distanceTraveled;
+	private Vec3 destination;
 
-	public MoveAction(double distance) {
+	public MoveAction(Worker entity, double distance) {
+		super(entity);
 		this.distance = distance;
 	}
 
@@ -20,35 +22,38 @@ public class MoveAction implements Action {
 	}
 
 	@Override
-	public boolean tick(Worker entity) {
-		return distanceTraveled <= distance;
+	public boolean tick() {
+		return distanceTraveled < distance;
 	}
 
 	@Override
 	public boolean hasCompleted() {
-		return distanceTraveled > distance;
+		return distanceTraveled >= distance;
 	}
 
 	@Override
-	public void start(Worker entity) {
+	public void start() {
 
-		Vec3 oldPos = entity.position();
+		Vec3 oldPos = this.getEntity().position();
 
-		entity.setDeltaMovement(new Vec3((double) (Mth.sin(-entity.getYRot() * ((float) Math.PI / 180F)) * 0.05), 0.0D,
-				(double) (Mth.cos(entity.getYRot() * ((float) Math.PI / 180F)) * 0.05)));
-		entity.move(MoverType.SELF, entity.getDeltaMovement());
-		double traveled = oldPos.distanceTo(entity.position());
+		this.getEntity()
+				.setDeltaMovement(new Vec3(
+						(double) (Mth.sin(-this.getEntity().getYRot() * ((float) Math.PI / 180F)) * -0.05), 0.0D,
+						(double) (Mth.cos(this.getEntity().getYRot() * ((float) Math.PI / 180F)) * -0.05)));
+		this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
+		double traveled = oldPos.distanceTo(this.getEntity().position());
 		distanceTraveled += traveled;
 		if (traveled == 0)
-			entity.playJammedAlarm(true);
+			this.getEntity().playJammedAlarm(true);
 		else
-			entity.playJammedAlarm(false);
-		entity.getTorquePower().cost(this.torqueCost() * traveled);
+			this.getEntity().playJammedAlarm(false);
+		this.getEntity().getTorquePower().cost(this.torqueCost() * traveled);
 	}
 
 	@Override
-	public void end(Worker entity) {
-		entity.playJammedAlarm(false);
+	public void end() {
+		this.getEntity().playJammedAlarm(false);
+		this.getEntity().setPos(new Vec3(destination.x, this.getEntity().position().y, destination.z));
 	}
 
 	@Override

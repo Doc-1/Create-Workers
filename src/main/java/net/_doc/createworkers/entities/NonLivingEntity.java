@@ -2,7 +2,7 @@ package net._doc.createworkers.entities;
 
 import java.util.List;
 
-import net._doc.createworkers.entities.controller.EntityController;
+import net._doc.createworkers.entities.controller.ActionController;
 import net._doc.createworkers.items.CWItems;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.Direction;
@@ -36,7 +36,7 @@ public abstract class NonLivingEntity extends Entity {
 	public double lerpY;
 	public double lerpZ;
 
-	protected EntityController controller = new EntityController(this);
+	protected ActionController controller = new ActionController();
 	protected boolean entityCollision = false;
 
 	protected NonLivingEntity(EntityType<? extends Entity> pEntityType, Level pLevel) {

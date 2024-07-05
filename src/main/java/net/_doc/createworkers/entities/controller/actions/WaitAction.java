@@ -2,11 +2,12 @@ package net._doc.createworkers.entities.controller.actions;
 
 import net._doc.createworkers.entities.Worker;
 
-public class WaitAction implements Action {
+public class WaitAction extends Action {
 
 	private final int ticks;
 
-	public WaitAction(int ticks) {
+	public WaitAction(Worker entity, int ticks) {
+		super(entity);
 		this.ticks = ticks;
 	}
 
@@ -20,7 +21,7 @@ public class WaitAction implements Action {
 	}
 
 	@Override
-	public boolean tick(Worker entity) {
+	public boolean tick() {
 		return false;
 	}
 
@@ -30,12 +31,12 @@ public class WaitAction implements Action {
 	}
 
 	@Override
-	public void start(Worker entity) {
+	public void start() {
 
 	}
 
 	@Override
-	public void end(Worker entity) {
+	public void end() {
 
 	}
 
