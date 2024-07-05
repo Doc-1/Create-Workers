@@ -2,11 +2,12 @@ package net._doc.createworkers.content.logic.torque;
 
 public class TorquePower {
 	public final double maxTorque;
-	public double currentTorque = 100;
+	public double currentTorque;
 	public final double costMulti;
 
 	public TorquePower(double maxTorque, double costMulti) {
 		this.maxTorque = maxTorque;
+		this.currentTorque = maxTorque;
 		this.costMulti = costMulti;
 	}
 

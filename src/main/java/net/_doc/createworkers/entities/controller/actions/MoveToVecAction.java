@@ -2,6 +2,7 @@ package net._doc.createworkers.entities.controller.actions;
 
 import java.awt.geom.Point2D;
 
+import com.mojang.logging.LogUtils;
 import com.simibubi.create.content.contraptions.bearing.WindmillBearingBlockEntity.RotationDirection;
 
 import net._doc.createworkers.entities.Worker;
@@ -39,11 +40,11 @@ public class MoveToVecAction extends Action {
 			int mod = rotation < 0 ? -1 : 1;
 			this.getEntity().deltaRot = 2 * mod;
 			// rotationTraveled = this.getEntity().getYRot();
-			System.out.println((b.x - a.x) + " " + (b.y - a.y) + " " + rotation);
 		}
 		if (distance == null) {
 			Vec3 location = new Vec3(getEntity().position().x, 0, getEntity().position().z);
 			distance = location.distanceTo(destination);
+			LogUtils.getLogger().info("Start " + getEntity().position() + " " + distance + " " + rotation);
 		}
 		return !finishedDistance || !finishedRotation;
 	}
@@ -53,7 +54,7 @@ public class MoveToVecAction extends Action {
 		if (hasReachedRotation()) {
 			rotationTraveled += this.getEntity().deltaRot;
 			this.getEntity().setYRot((rotationTraveled + startingRotation));
-			this.getEntity().getTorquePower().cost(1 * (this.getEntity().deltaRot * 0.0072));
+			this.getEntity().getTorquePower().cost(1 * (Math.abs(this.getEntity().deltaRot) * 0.0072));
 		} else if (!finishedRotation) {
 			this.getEntity().setYRot(endingRotation);
 			finishedRotation = true;
@@ -80,6 +81,15 @@ public class MoveToVecAction extends Action {
 
 	@Override
 	public void end() {
+		LogUtils.getLogger().info("End " + this.getEntity().position());
+
+		rotation = null;
+		distance = null;
+		rotationTraveled = 0;
+		distanceTraveled = 0;
+		finishedDistance = false;
+		finishedRotation = false;
+
 	}
 
 	@Override

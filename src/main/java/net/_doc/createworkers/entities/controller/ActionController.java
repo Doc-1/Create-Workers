@@ -40,6 +40,7 @@ public class ActionController {
 			}
 			return false;
 		}
+		selectedIndex = 0;
 		return true;
 	}
 }

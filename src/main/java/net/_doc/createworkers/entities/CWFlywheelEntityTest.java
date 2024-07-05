@@ -40,14 +40,18 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
 	@Override
 	public void setControllerActions() {
 		// this.controller.add(new MoveToVecAction(new Vec3(242, 0, -24)));
-		this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -16.5)));
-		this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -14.5)));
-
+		// this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -16.5)));
+		// this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -24.5)));
+		// this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -23.5)));
+		this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -13.5)));
+		this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -10.5)));
+		this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -10.5)));
+		this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -8.5)));
 	}
 
 	@Override
 	public TorquePower setTorquePower() {
-		return new TorquePower(50, 2);
+		return new TorquePower(500, 2);
 	}
 
 }
