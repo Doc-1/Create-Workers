@@ -3,7 +3,6 @@ package net._doc.createworkers.entities.controller.actions;
 import java.awt.geom.Point2D;
 
 import com.mojang.logging.LogUtils;
-import com.simibubi.create.content.contraptions.bearing.WindmillBearingBlockEntity.RotationDirection;
 
 import net._doc.createworkers.entities.Worker;
 import net.minecraft.util.Mth;
@@ -13,6 +12,8 @@ import net.minecraft.world.phys.Vec3;
 public class MoveToVecAction extends Action {
 
 	private Double distance;
+	private double traveled;
+	private Vec3 deltaMovement;
 	private double distanceTraveled;
 	private final Vec3 destination;
 	private boolean finishedDistance = false;
@@ -21,7 +22,6 @@ public class MoveToVecAction extends Action {
 	private float startingRotation;
 	private float endingRotation;
 	private float rotationTraveled;
-	private RotationDirection rotationDir = RotationDirection.CLOCKWISE;
 	private boolean finishedRotation = false;
 
 	public MoveToVecAction(Worker entity, Vec3 destination) {
@@ -44,6 +44,10 @@ public class MoveToVecAction extends Action {
 		if (distance == null) {
 			Vec3 location = new Vec3(getEntity().position().x, 0, getEntity().position().z);
 			distance = location.distanceTo(destination);
+
+			deltaMovement = new Vec3((double) (Mth.sin(-endingRotation * ((float) Math.PI / 180F)) * 0.05), 0.0D,
+					(double) (Mth.cos(endingRotation * ((float) Math.PI / 180F)) * 0.05));
+			traveled = this.getEntity().position().distanceTo(this.getEntity().position().add(deltaMovement));
 			LogUtils.getLogger().info("Start " + getEntity().position() + " " + distance + " " + rotation);
 		}
 		return !finishedDistance || !finishedRotation;
@@ -55,24 +59,25 @@ public class MoveToVecAction extends Action {
 			rotationTraveled += this.getEntity().deltaRot;
 			this.getEntity().setYRot((rotationTraveled + startingRotation));
 			this.getEntity().getTorquePower().cost(1 * (Math.abs(this.getEntity().deltaRot) * 0.0072));
-		} else if (!finishedRotation) {
+		}
+		if (!finishedRotation && !hasReachedRotation()) {
 			this.getEntity().setYRot(endingRotation);
 			finishedRotation = true;
-		} else if (distanceTraveled < distance) {
-			Vec3 oldPos = this.getEntity().position();
-			this.getEntity()
-					.setDeltaMovement(new Vec3(
-							(double) (Mth.sin(-this.getEntity().getYRot() * ((float) Math.PI / 180F)) * 0.05), 0.0D,
-							(double) (Mth.cos(this.getEntity().getYRot() * ((float) Math.PI / 180F)) * 0.05)));
-			this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
-			double traveled = oldPos.distanceTo(this.getEntity().position());
+		}
+		if (distanceTraveled < distance && !hasReachedRotation() && !finishedDistance) {
+			this.getEntity().move(MoverType.SELF, deltaMovement);
+
 			distanceTraveled += traveled;
+			LogUtils.getLogger()
+					.info(distanceTraveled + " " + distance + " " + deltaMovement + " " + this.getEntity().position());
+
 			if (traveled == 0)
 				this.getEntity().playJammedAlarm(true);
 			else
 				this.getEntity().playJammedAlarm(false);
-			this.getEntity().getTorquePower().cost(2 * traveled);
-		} else if (!finishedDistance) {
+			this.getEntity().getTorquePower().cost(1.5 * traveled);
+		}
+		if (!finishedDistance && distanceTraveled >= distance) {
 			this.getEntity().setPos(new Vec3(destination.x, this.getEntity().getY(), destination.z));
 			finishedDistance = true;
 		}
@@ -81,7 +86,6 @@ public class MoveToVecAction extends Action {
 
 	@Override
 	public void end() {
-		LogUtils.getLogger().info("End " + this.getEntity().position());
 
 		rotation = null;
 		distance = null;
