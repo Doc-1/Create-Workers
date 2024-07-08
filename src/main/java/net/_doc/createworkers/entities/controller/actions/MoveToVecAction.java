@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 
 import net._doc.createworkers.entities.Worker;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.phys.Vec3;
 
 public class MoveToVecAction extends Action {
@@ -44,27 +45,43 @@ public class MoveToVecAction extends Action {
 	@Override
 	public void start() {
 
+		this.getEntity().setIgnoreFrames(false);
 		if (!finishedRotation && !hasReachedRotation()) {
 			rotationTraveled += this.getEntity().deltaRotation;
-
+			/*
+			 * if (hasReachedRotation()) { int x = (int) Math.ceil(rotationGoal / 360);
+			 * float d = rotationTraveled; if ((x != 0)) { if (rotationGoal < 0) d += 360 *
+			 * (x + 1); else d -= 360 * x; this.getEntity().setIgnoreFrames(true); }
+			 * rotationTraveled = d - this.getEntity().deltaRotation; finishedRotation =
+			 * true; }
+			 */
 			if (hasReachedRotation()) {
-				int x = (int) Math.ceil(rotationGoal / 360);
-				float d = rotationTraveled;
-				if ((x != 0)) {
-					if (rotationGoal < 0)
-						d += 360 * (x + 1);
-					else
-						d -= 360 * x;
-					this.getEntity().setIgnoreFrames(true);
-				}
-				System.out.println(d);
-				rotationTraveled = d - this.getEntity().deltaRotation;
-				finishedRotation = true;
+				this.getEntity().setYRot(this.rotationGoal);
+			} else {
+				this.getEntity().setYRot(rotationTraveled);
 			}
-			this.getEntity().setYRot(rotationTraveled);
-		}
-		if (!finishedDistance && !hasReachedDistance()) {
+		} else if (!finishedRotation) {
+			float yRot = this.getEntity().getYRot();
+			if (yRot > 360) {
+				this.getEntity().setIgnoreFrames(true);
+				this.getEntity().setYRot(this.rotationGoal - 360);
+			} else if (yRot < 0) {
+				this.getEntity().setIgnoreFrames(true);
+				this.getEntity().setYRot(this.rotationGoal + 360);
+			}
+			finishedRotation = true;
+			System.out.println(this.getEntity().getYRot() + " " + this.rotationGoal);
+		} else if (!finishedDistance && !hasReachedDistance()) {
+			double dis = getDistancedHasTraveled();
+			distanceTraveled += dis; // System.out.println(this.travelRate + " " + dis);
+			if (hasReachedDistance()) {
+				distanceTraveled = distanceGoal;
+				this.getEntity().setPos(new Vec3(destinationVec.x, this.getEntity().position().y, destinationVec.z));
+			} else
+				this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
 
+			System.out.println(distanceTraveled + " " + distanceGoal + " " + getDistancedHasTraveled() + " "
+					+ this.getEntity().getDeltaMovement() + " " + destinationVec);
 		}
 		/*
 		 * if (hasReachedRotation()) if (rotationTraveled >= 360) rotationTraveled -=
@@ -82,9 +99,8 @@ public class MoveToVecAction extends Action {
 		 * System.out.println(distanceTraveled + " " + distanceGoal + " " +
 		 * getDistancedHasTraveled() + " " + this.getEntity().getDeltaMovement() + " " +
 		 * destination);
-		 * 
-		 * }
 		 */
+
 	}
 
 	@Override
