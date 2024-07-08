@@ -8,6 +8,7 @@ import com.jozufozu.flywheel.core.materials.model.ModelData;
 import com.jozufozu.flywheel.util.AnimationTickHolder;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllPartialModels;
 
 import net._doc.createworkers.blocks.CWBlocks;
@@ -21,6 +22,7 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 	private static PoseStack stack = new PoseStack();
 	private final ModelData model;
 	private final ModelData model2;
+	private final ModelData storageModel;
 
 	public CWFlywheelInstanceTest(MaterialManager materialManager, CWFlywheelEntityTest entity) {
 		super(materialManager, entity);
@@ -29,10 +31,13 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 				.getModel(AllPartialModels.SHAFTLESS_COGWHEEL).createInstance();
 		model2 = materialManager.defaultSolid().material(Materials.TRANSFORMED)
 				.getModel(CWBlocks.TEMP_BLOCK.getDefaultState()).createInstance();
+		this.storageModel = materialManager.defaultSolid().material(Materials.TRANSFORMED)
+				.getModel(AllBlocks.ITEM_VAULT.getDefaultState()).createInstance();
 
 		model.loadIdentity().translate(getInstancePosition()).centre()
 				.rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), 0).unCentre();
 		model2.loadIdentity().translate(getInstancePosition());
+		this.storageModel.loadIdentity().translate(getInstancePosition());
 
 	}
 
@@ -40,12 +45,14 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 	protected void remove() {
 		model.delete();
 		model2.delete();
+		storageModel.delete();
 	}
 
 	@Override
 	public void updateLight() {
 		relight(getWorldPosition(), model);
 		relight(getWorldPosition(), model2);
+		relight(getWorldPosition(), storageModel);
 	}
 
 	private Vec3 partOffset() {
@@ -85,6 +92,10 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 				.rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), -yaw).unCentre();
 		model.loadIdentity().setTransform(stack).centre()
 				.rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), rot).unCentre();
+
+		tstack.translate(0, 0.75, 0);
+		storageModel.loadIdentity().setTransform(stack).centre()
+				.rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), -yaw).unCentre();
 
 	}
 }
