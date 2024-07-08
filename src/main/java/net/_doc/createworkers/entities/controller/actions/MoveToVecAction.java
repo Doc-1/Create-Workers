@@ -1,124 +1,166 @@
 package net._doc.createworkers.entities.controller.actions;
 
 import java.awt.geom.Point2D;
-
-import com.mojang.logging.LogUtils;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import net._doc.createworkers.entities.Worker;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.phys.Vec3;
 
 public class MoveToVecAction extends Action {
 
-	private Double distance;
-	private double traveled;
-	private Vec3 deltaMovement;
 	private double distanceTraveled;
-	private final Vec3 destination;
-	private boolean finishedDistance = false;
+	private Double distanceGoal;
+	private final Vec3 destinationVec;
+	private boolean finishedDistance;
 
-	private Float rotation;
-	private float startingRotation;
-	private float endingRotation;
+	private double travelRate;
+
 	private float rotationTraveled;
-	private boolean finishedRotation = false;
+	private Float rotationGoal;
+	private boolean finishedRotation;
 
 	public MoveToVecAction(Worker entity, Vec3 destination) {
 		super(entity);
-		this.destination = destination;
+		this.destinationVec = destination;
 	}
 
 	@Override
 	public boolean tick() {
-		if (rotation == null) {
-			Point2D.Double a = new Point2D.Double(destination.x, destination.z);
-			Point2D.Double b = new Point2D.Double(getEntity().position().x, getEntity().position().z);
-			endingRotation = (float) Math.toDegrees(Math.atan2((b.x - a.x), -(b.y - a.y)));
-			startingRotation = this.getEntity().getYRot();
-			rotation = endingRotation - startingRotation;
-			int mod = rotation < 0 ? -1 : 1;
-			this.getEntity().deltaRot = 2 * mod;
-			// rotationTraveled = this.getEntity().getYRot();
+		if (rotationGoal == null) {
+			this.updateRotationNeeded();
+			this.setDeltaRotation(3F);
+			finishedRotation = false;
 		}
-		if (distance == null) {
-			Vec3 location = new Vec3(getEntity().position().x, 0, getEntity().position().z);
-			distance = location.distanceTo(destination);
-
-			deltaMovement = new Vec3((double) (Mth.sin(-endingRotation * ((float) Math.PI / 180F)) * 0.05), 0.0D,
-					(double) (Mth.cos(endingRotation * ((float) Math.PI / 180F)) * 0.05));
-			traveled = this.getEntity().position().distanceTo(this.getEntity().position().add(deltaMovement));
-			LogUtils.getLogger().info("Start " + getEntity().position() + " " + distance + " " + rotation);
+		if (distanceGoal == null) {
+			this.setDeltaMovement(0.1);
+			this.updateDistanceNeeded();
+			finishedDistance = false;
 		}
-		return !finishedDistance || !finishedRotation;
+		return !hasReachedDistance() || !hasReachedRotation();
 	}
 
 	@Override
 	public void start() {
-		if (hasReachedRotation()) {
-			rotationTraveled += this.getEntity().deltaRot;
-			this.getEntity().setYRot((rotationTraveled + startingRotation));
-			this.getEntity().getTorquePower().cost(1 * (Math.abs(this.getEntity().deltaRot) * 0.0072));
-		}
+
 		if (!finishedRotation && !hasReachedRotation()) {
-			this.getEntity().setYRot(endingRotation);
-			finishedRotation = true;
-		}
-		if (distanceTraveled < distance && !hasReachedRotation() && !finishedDistance) {
-			this.getEntity().move(MoverType.SELF, deltaMovement);
+			rotationTraveled += this.getEntity().deltaRotation;
 
-			distanceTraveled += traveled;
-			LogUtils.getLogger()
-					.info(distanceTraveled + " " + distance + " " + deltaMovement + " " + this.getEntity().position());
-
-			if (traveled == 0)
-				this.getEntity().playJammedAlarm(true);
-			else
-				this.getEntity().playJammedAlarm(false);
-			this.getEntity().getTorquePower().cost(1.5 * traveled);
+			if (hasReachedRotation()) {
+				int x = (int) Math.ceil(rotationGoal / 360);
+				float d = rotationTraveled;
+				if ((x != 0)) {
+					if (rotationGoal < 0)
+						d += 360 * (x + 1);
+					else
+						d -= 360 * x;
+					this.getEntity().setIgnoreFrames(true);
+				}
+				System.out.println(d);
+				rotationTraveled = d - this.getEntity().deltaRotation;
+				finishedRotation = true;
+			}
+			this.getEntity().setYRot(rotationTraveled);
 		}
-		if (!finishedDistance && distanceTraveled >= distance) {
-			this.getEntity().setPos(new Vec3(destination.x, this.getEntity().getY(), destination.z));
-			finishedDistance = true;
-		}
+		if (!finishedDistance && !hasReachedDistance()) {
 
+		}
+		/*
+		 * if (hasReachedRotation()) if (rotationTraveled >= 360) rotationTraveled -=
+		 * 360; else rotationTraveled = rotationGoal;
+		 */
+		/*
+		 * else if (!hasReachedDistance()) { double dis = getDistancedHasTraveled();
+		 * distanceTraveled += dis; // System.out.println(this.travelRate + " " + dis);
+		 * if (hasReachedDistance()) { distanceTraveled = distanceGoal;
+		 * this.getEntity().setPos(new Vec3(destinationVec.x,
+		 * this.getEntity().position().y, destinationVec.z)); } else
+		 * this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
+		 * 
+		 * 
+		 * System.out.println(distanceTraveled + " " + distanceGoal + " " +
+		 * getDistancedHasTraveled() + " " + this.getEntity().getDeltaMovement() + " " +
+		 * destination);
+		 * 
+		 * }
+		 */
 	}
 
 	@Override
 	public void end() {
 
-		rotation = null;
-		distance = null;
-		rotationTraveled = 0;
-		distanceTraveled = 0;
-		finishedDistance = false;
-		finishedRotation = false;
+		rotationGoal = null;
+		distanceGoal = null;
 
 	}
 
 	@Override
 	public boolean hasCompleted() {
-		return finishedRotation && finishedDistance;
+		return hasReachedDistance() && hasReachedRotation();
 	}
 
 	@Override
 	public int torqueCost() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 
 	@Override
 	public ActionType getActionType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	private boolean hasReachedRotation() {
-		if (this.getEntity().deltaRot > 0)
-			return rotationTraveled < rotation;
-		else {
-			return rotationTraveled > rotation;
-		}
+	private void setDeltaRotation(float speed) {
 	}
 
+	private void updateRotationNeeded() {
+		Point2D.Double a = new Point2D.Double(destinationVec.x, destinationVec.z);
+		Point2D.Double b = new Point2D.Double(getEntity().position().x, getEntity().position().z);
+		float r = (float) Math.toDegrees(Math.atan2((b.x - a.x), -(b.y - a.y)));
+		rotationGoal = new BigDecimal(r).setScale(3, RoundingMode.HALF_UP).floatValue();
+		int mod = rotationGoal < 0 ? -1 : 1;
+		rotationTraveled = this.getEntity().getYRot();
+		// LogUtils.getLogger().info(rotationGoal + " " + rotationTraveled + " " +
+		// (rotationTraveled - rotationGoal));
+
+		this.getEntity().deltaRotation = new BigDecimal(3 * mod).setScale(3, RoundingMode.HALF_UP).floatValue();
+
+	}
+
+	private void updateDistanceNeeded() {
+		Vec3 location = new Vec3(getEntity().position().x, 0, getEntity().position().z);
+		distanceGoal = new BigDecimal(location.distanceTo(destinationVec)).setScale(3, RoundingMode.HALF_UP)
+				.doubleValue();
+	}
+
+	private void setDeltaMovement(double speed) {
+		this.getEntity().setDeltaMovement(
+				new BigDecimal(Mth.sin(-rotationGoal * ((float) Math.PI / 180F)) * speed)
+						.setScale(3, RoundingMode.HALF_UP).doubleValue(),
+				0.0D, new BigDecimal(Mth.cos(rotationGoal * ((float) Math.PI / 180F)) * speed)
+						.setScale(3, RoundingMode.HALF_UP).doubleValue());
+		travelRate = new BigDecimal(new Vec3(0, 0, 0).distanceTo(this.getEntity().getDeltaMovement()))
+				.setScale(3, RoundingMode.HALF_UP).doubleValue();
+	}
+
+	private double getDistancedHasTraveled() {
+		Vec3 location = new Vec3(getEntity().position().x, 0, getEntity().position().z);
+		return new BigDecimal(location.add(this.getEntity().getDeltaMovement()).distanceTo(location))
+				.setScale(3, RoundingMode.HALF_UP).doubleValue();
+	}
+
+	private boolean hasReachedRotation() {
+		// System.out.println(rotationTraveled + " " + rotationGoal + " " +
+		// this.getEntity().deltaRotation + " ");
+		if (this.getEntity().deltaRotation > 0)
+			return rotationTraveled >= rotationGoal;
+		else
+			return rotationTraveled <= rotationGoal;
+
+	}
+
+	private boolean hasReachedDistance() {
+
+		return distanceTraveled >= distanceGoal;
+	}
 }

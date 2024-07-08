@@ -65,15 +65,13 @@ public abstract class NonLivingEntity extends Entity {
 
 	@Override
 	public boolean isPushable() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public void push(Entity pEntity) {
-		if (pEntity.getBoundingBox().minY <= this.getBoundingBox().minY) {
+		if (pEntity.getBoundingBox().minY <= this.getBoundingBox().minY)
 			super.push(pEntity);
-			this.entityCollision = true;
-		}
 	}
 
 	@SuppressWarnings("resource")

@@ -73,7 +73,11 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
 			x = Mth.lerp(pt, entity.xOld, entity.getX()) - partOffset().x;
 			y = Mth.lerp(pt, entity.yOld, entity.getY()) - partOffset().y;
 			z = Mth.lerp(pt, entity.zOld, entity.getZ()) - partOffset().z;
-			yaw = (float) Math.toRadians(Mth.lerp(pt, entity.yRotO, entity.getYRot()));
+			if (!entity.isIgnoreFrames())
+				yaw = (float) Math.toRadians(Mth.lerp(pt, entity.yRotO, entity.getYRot()));
+			else
+				yaw = (float) Math.toRadians(entity.getYRot());
+
 			rot = entity.getIndependentAngle(pt);
 		}
 		tstack.translate(x, y, z);

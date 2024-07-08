@@ -33,11 +33,11 @@ public class RotateAction extends Action implements IAction {
 
 	@Override
 	public void start() {
-		this.getEntity().deltaRot = 2;
-		rotationTraveled += this.getEntity().deltaRot;
+		this.getEntity().deltaRotation = 2;
+		rotationTraveled += this.getEntity().deltaRotation;
 		int mod = rotationDir.equals(RotationDirection.CLOCKWISE) ? 1 : -1;
 		this.getEntity().setYRot(rotationTraveled * mod);
-		this.getEntity().getTorquePower().cost(this.torqueCost() * (this.getEntity().deltaRot * 0.0072));
+		this.getEntity().getTorquePower().cost(this.torqueCost() * (this.getEntity().deltaRotation * 0.0072));
 	}
 
 	@Override

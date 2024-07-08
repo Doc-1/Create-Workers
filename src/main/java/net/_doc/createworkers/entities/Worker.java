@@ -18,13 +18,14 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public abstract class Worker extends NonLivingEntity implements IHaveGoggleInformation {
 
-	public float deltaRot = 0;
+	public float deltaRotation = 0;
 	private int stuckTicks = 0;
 	private final int alarmTickDelay = 20;
 	private int alarmTicks = 0;
 
 	private TorquePower torque;
 	private boolean isJammmed;
+	private boolean ignoreFrames = false;
 
 	protected Worker(EntityType<? extends Entity> pEntityType, Level pLevel) {
 		super(pEntityType, pLevel);
@@ -77,6 +78,14 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
 
 	public TorquePower getTorquePower() {
 		return torque;
+	}
+
+	public boolean isIgnoreFrames() {
+		return ignoreFrames;
+	}
+
+	public void setIgnoreFrames(boolean ignoreFrames) {
+		this.ignoreFrames = ignoreFrames;
 	}
 
 }
