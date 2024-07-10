@@ -16,7 +16,6 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +40,6 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
 	public void tick() {
 		chasingVelocity += ((20 * 10 / 3f) - chasingVelocity) * .25f;
 		independentAngle += chasingVelocity;
-		this.move(MoverType.SELF, new Vec3(0, -0.4, 0));
 		super.tick();
 	}
 
