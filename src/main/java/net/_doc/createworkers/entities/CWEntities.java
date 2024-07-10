@@ -18,7 +18,7 @@ public class CWEntities {
 							.sized(1.5F, 1.5F).build("small_transport_robot"));
 
 	public static final RegistryObject<EntityType<CWFlywheelEntityTest>> CW_TEST = ENTITY_TYPES.register("cw_test",
-			() -> EntityType.Builder.of(CWFlywheelEntityTest::new, MobCategory.MISC).sized(1F, 1.8F)
+			() -> EntityType.Builder.of(CWFlywheelEntityTest::new, MobCategory.MISC).sized(0.9F, 1.8F)
 					.clientTrackingRange(10).build("cw_test"));
 
 	public static void register(IEventBus eventBus) {

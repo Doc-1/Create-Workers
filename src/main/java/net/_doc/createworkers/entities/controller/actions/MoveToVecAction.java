@@ -21,6 +21,7 @@ public class MoveToVecAction extends Action {
 
 	private float startingRotation;
 	private float rotationTraveled;
+	private float rotationTraveledGoal;
 	private Float rotationGoal;
 	private boolean reachedRotation;
 
@@ -32,15 +33,14 @@ public class MoveToVecAction extends Action {
 	@Override
 	public boolean tick() {
 		if (rotationGoal == null) {
-			this.setDeltaRotation(2F);
 			this.updateRotation();
 			reachedRotation = false;
+			rotationTraveled = 0;
 		}
 		if (distanceGoal == null) {
 			this.setDeltaMovement(0.1);
 			this.updateDistance();
 
-			System.out.println(this.getEntity().getYRot() + " " + this.getEntity().position());
 		}
 		return !hasReachedDistance() || !reachedRotation;
 	}
@@ -50,20 +50,23 @@ public class MoveToVecAction extends Action {
 		if (!reachedRotation) {
 			this.getEntity().setIgnoreFrames(false);
 			AtomicDouble x = new AtomicDouble(this.getEntity().getYRot());
+			rotationTraveled += this.getEntity().deltaRotation;
 			if (DegreeUtils.addToAngle(x, this.getEntity().deltaRotation))
 				this.getEntity().setIgnoreFrames(true);
 			this.getEntity().setYRot(x.floatValue());
-			this.rotationTraveled += x.floatValue();
 			reachedRotation = hasReachedRotation();
 			if (reachedRotation)
 				this.getEntity().setYRot(this.rotationGoal);
 		} else if (!hasReachedDistance()) {
-			this.distanceTraveled += this.travelRate;
+			float oldRot = this.rotationGoal;
+			this.updateRotation();
+			this.setDeltaMovement(0.1);
+			if (oldRot != rotationGoal)
+				this.getEntity().setYRot(this.rotationGoal);
+
 			this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
 		} else {
 			this.getEntity().setDeltaMovement(0, 0, 0);
-			this.getEntity().setPos(new Vec3(destinationGoal.x, this.getEntity().position().y, destinationGoal.z));
-			System.out.println(this.getEntity().position());
 		}
 	}
 
@@ -71,6 +74,7 @@ public class MoveToVecAction extends Action {
 	public void end() {
 		rotationGoal = null;
 		distanceGoal = null;
+		this.getEntity().setPos(new Vec3(destinationGoal.x, this.getEntity().position().y, destinationGoal.z));
 
 	}
 
@@ -100,6 +104,12 @@ public class MoveToVecAction extends Action {
 		this.rotationGoal = -new BigDecimal(Math.toDegrees(Math.atan2(b.x - a.x, b.y - a.y)))
 				.setScale(1, RoundingMode.CEILING).floatValue();
 		this.startingRotation = worker.getYRot();
+		AtomicDouble x = new AtomicDouble(this.startingRotation);
+		DegreeUtils.addToAngle(x, -rotationGoal);
+		this.rotationTraveledGoal = new BigDecimal(-x.floatValue()).setScale(1, RoundingMode.CEILING).floatValue();
+
+		int z = x.intValue() < 0 ? 1 : -1;
+		this.setDeltaRotation(2F * z);
 	}
 
 	private void updateDistance() {
@@ -123,9 +133,10 @@ public class MoveToVecAction extends Action {
 	}
 
 	private boolean hasReachedRotation() {
-		float yL = this.getEntity().getYRot() + this.getEntity().deltaRotation;
-		float yR = this.getEntity().getYRot() - this.getEntity().deltaRotation;
-		return this.rotationGoal < yL && this.rotationGoal > yR;
+		if (getEntity().deltaRotation > 0)
+			return this.rotationTraveled > this.rotationTraveledGoal;
+		else
+			return this.rotationTraveled < this.rotationTraveledGoal;
 
 	}
 
@@ -133,6 +144,6 @@ public class MoveToVecAction extends Action {
 		double distance = new BigDecimal(this.getEntity().position()
 				.distanceTo(new Vec3(this.destinationGoal.x, this.getEntity().position().y, this.destinationGoal.z)))
 				.setScale(3, RoundingMode.CEILING).doubleValue();
-		return this.distanceGoal <= this.distanceTraveled && distance <= this.travelRate;
+		return distance < this.travelRate;
 	}
 }

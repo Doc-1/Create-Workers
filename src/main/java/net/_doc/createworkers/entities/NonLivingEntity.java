@@ -85,7 +85,6 @@ public abstract class NonLivingEntity extends Entity {
 			this.setDamage(this.getDamage() - 1.0F);
 
 		super.tick();
-		tickLerp();
 		this.checkInsideBlocks();
 
 		List<Entity> list = this.level().getEntities(this,
