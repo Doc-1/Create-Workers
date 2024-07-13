@@ -1,7 +1,7 @@
 package net._doc.createworkers.items;
 
+import net._doc.createworkers.CWBlocks;
 import net._doc.createworkers.CreateWorkers;
-import net._doc.createworkers.blocks.CWBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class CWCreativeModeTab {
 	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
-			.create(Registries.CREATIVE_MODE_TAB, CreateWorkers.MOD_ID);
+			.create(Registries.CREATIVE_MODE_TAB, CreateWorkers.ID);
 
 	public static final RegistryObject<CreativeModeTab> CREATE_WORKERS_TAB = CREATIVE_MODE_TABS.register(
 			"create_workers_tab",
@@ -21,6 +21,7 @@ public class CWCreativeModeTab {
 					.displayItems((pParameters, pOutput) -> {
 						pOutput.accept(CWItems.MAINSPRING.get());
 						pOutput.accept(CWBlocks.TEMP_BLOCK.get());
+						pOutput.accept(CWItems.HOLE_PUNCH.get());
 					})
 
 					.build());

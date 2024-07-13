@@ -1,3 +1,5 @@
 {
-  "block.create_workers.temp_block": "Temp Block"
+  "block.create_workers.temp_block": "Temp Block",
+  "item.create_workers.hole_punch": "Hole Punch",
+  "item.create_workers.mainspring": "Mainspring"
 }

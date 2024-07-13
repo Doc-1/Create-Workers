@@ -10,7 +10,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -30,11 +29,6 @@ public abstract class NonLivingEntity extends Entity {
 			EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Float> DATA_ID_DAMAGE = SynchedEntityData.defineId(NonLivingEntity.class,
 			EntityDataSerializers.FLOAT);
-
-	public float lerpSteps;
-	public double lerpX;
-	public double lerpY;
-	public double lerpZ;
 
 	protected ActionController controller = new ActionController();
 	protected boolean entityCollision = false;
@@ -105,27 +99,9 @@ public abstract class NonLivingEntity extends Entity {
 
 	}
 
-	private void tickLerp() {
-		if (this.lerpSteps > 0) {
-			double d0 = this.getX() + (this.lerpX - this.getX()) / (double) this.lerpSteps;
-			double d1 = this.getY() + (this.lerpY - this.getY()) / (double) this.lerpSteps;
-			double d2 = this.getZ() + (this.lerpZ - this.getZ()) / (double) this.lerpSteps;
-			double d3 = Mth.wrapDegrees(this.getYRot() - (double) this.getYRot());
-			this.setYRot(this.getYRot() + (float) d3 / (float) this.lerpSteps);
-			this.setXRot(this.getXRot() + (float) (this.getXRot() - (double) this.getXRot()) / (float) this.lerpSteps);
-			--this.lerpSteps;
-			this.setPos(d0, d1, d2);
-			this.setRot(this.getYRot(), this.getXRot());
-		}
-	}
-
 	@Override
 	public void lerpTo(double pX, double pY, double pZ, float pYaw, float pPitch, int pPosRotationIncrements,
 			boolean pTeleport) {
-		this.lerpX = pX;
-		this.lerpY = pY;
-		this.lerpZ = pZ;
-		this.lerpSteps = 10;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class CWEntities {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister
-			.create(ForgeRegistries.ENTITY_TYPES, CreateWorkers.MOD_ID);
+			.create(ForgeRegistries.ENTITY_TYPES, CreateWorkers.ID);
 
 	public static final RegistryObject<EntityType<CWSmallTransportRobotEntity>> CW_SMALL_TRANSPORT_ROBOT = ENTITY_TYPES
 			.register("small_transport_robot",

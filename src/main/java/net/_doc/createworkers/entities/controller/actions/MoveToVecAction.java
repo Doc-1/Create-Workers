@@ -14,7 +14,6 @@ import net.minecraft.world.phys.Vec3;
 
 public class MoveToVecAction extends Action {
 
-	private double distanceTraveled;
 	private Double distanceGoal;
 	private final Vec3 destinationGoal;
 	private double travelRate;
@@ -25,20 +24,27 @@ public class MoveToVecAction extends Action {
 	private Float rotationGoal;
 	private boolean reachedRotation;
 
-	public MoveToVecAction(Worker entity, Vec3 destination) {
+	private final int tickDelay;
+	private Integer tickCount;
+
+	public MoveToVecAction(Worker entity, Vec3 destination, int tickDelay) {
 		super(entity);
 		this.destinationGoal = destination;
+		this.tickDelay = tickDelay;
 	}
 
 	@Override
 	public boolean tick() {
+		if (tickCount == null && tickDelay > 0) {
+			tickCount = 0;
+		}
 		if (rotationGoal == null) {
 			this.updateRotation();
 			reachedRotation = false;
 			rotationTraveled = 0;
 		}
 		if (distanceGoal == null) {
-			this.setDeltaMovement(0.1);
+			this.setDeltaMovement(0.15);
 			this.updateDistance();
 
 		}
@@ -47,33 +53,44 @@ public class MoveToVecAction extends Action {
 
 	@Override
 	public void start() {
-		if (!reachedRotation) {
-			this.getEntity().setIgnoreFrames(false);
-			AtomicDouble x = new AtomicDouble(this.getEntity().getYRot());
-			rotationTraveled += this.getEntity().deltaRotation;
-			if (DegreeUtils.addToAngle(x, this.getEntity().deltaRotation))
-				this.getEntity().setIgnoreFrames(true);
-			this.getEntity().setYRot(x.floatValue());
-			reachedRotation = hasReachedRotation();
-			if (reachedRotation)
-				this.getEntity().setYRot(this.rotationGoal);
-		} else if (!hasReachedDistance()) {
-			float oldRot = this.rotationGoal;
-			this.updateRotation();
-			this.setDeltaMovement(0.1);
-			if (oldRot != rotationGoal)
-				this.getEntity().setYRot(this.rotationGoal);
+		boolean flag = true;
+		if (tickCount != null)
+			if (tickCount < tickDelay) {
+				tickCount++;
+				flag = false;
+			}
 
-			this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
-		} else {
-			this.getEntity().setDeltaMovement(0, 0, 0);
-		}
+		if (flag)
+			if (!reachedRotation) {
+				this.getEntity().setIgnoreFrames(false);
+				AtomicDouble x = new AtomicDouble(this.getEntity().getYRot());
+				rotationTraveled += this.getEntity().deltaRotation;
+				if (DegreeUtils.addToAngle(x, this.getEntity().deltaRotation))
+					this.getEntity().setIgnoreFrames(true);
+				this.getEntity().setYRot(x.floatValue());
+				reachedRotation = hasReachedRotation();
+				if (reachedRotation)
+					this.getEntity().setYRot(this.rotationGoal);
+			} else if (!hasReachedDistance()) {
+				float oldRot = this.rotationGoal;
+				this.updateRotation();
+				this.setDeltaMovement(0.1);
+				if (oldRot != rotationGoal) {
+					this.getEntity().setYRot(this.rotationGoal);
+				}
+				this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
+				this.getEntity().playJammedAlarm(this.getEntity().getDeltaMovement().x == 0
+						&& this.getEntity().getDeltaMovement().y == 0 && this.getEntity().getDeltaMovement().z == 0);
+			} else {
+				this.getEntity().setDeltaMovement(0, 0, 0);
+			}
 	}
 
 	@Override
 	public void end() {
 		rotationGoal = null;
 		distanceGoal = null;
+		tickCount = null;
 		this.getEntity().setPos(new Vec3(destinationGoal.x, this.getEntity().position().y, destinationGoal.z));
 
 	}
@@ -124,12 +141,8 @@ public class MoveToVecAction extends Action {
 		this.getEntity().setDeltaMovement(
 				new BigDecimal(Mth.sin(-rotationGoal * ((float) Math.PI / 180F)) * speed)
 						.setScale(3, RoundingMode.HALF_UP).doubleValue(),
-				-0.04D, new BigDecimal(Mth.cos(rotationGoal * ((float) Math.PI / 180F)) * speed)
+				0, new BigDecimal(Mth.cos(rotationGoal * ((float) Math.PI / 180F)) * speed)
 						.setScale(3, RoundingMode.HALF_UP).doubleValue());
-	}
-
-	private double getDistancedHasTraveled() {
-		return 0.0;
 	}
 
 	private boolean hasReachedRotation() {

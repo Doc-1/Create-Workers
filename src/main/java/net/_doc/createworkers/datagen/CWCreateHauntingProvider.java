@@ -8,8 +8,8 @@ import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import com.simibubi.create.foundation.utility.RegisteredObjects;
 
+import net._doc.createworkers.CWBlocks;
 import net._doc.createworkers.CreateWorkers;
-import net._doc.createworkers.blocks.CWBlocks;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;

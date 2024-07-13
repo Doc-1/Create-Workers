@@ -11,7 +11,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = CreateWorkers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = CreateWorkers.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CWDataGenerator {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event) {

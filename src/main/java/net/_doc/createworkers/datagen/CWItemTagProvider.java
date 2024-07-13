@@ -15,7 +15,7 @@ public class CWItemTagProvider extends ItemTagsProvider {
 
 	public CWItemTagProvider(PackOutput p_275343_, CompletableFuture<Provider> p_275729_,
 			CompletableFuture<TagLookup<Block>> p_275322_, @Nullable ExistingFileHelper existingFileHelper) {
-		super(p_275343_, p_275729_, p_275322_, CreateWorkers.MOD_ID, existingFileHelper);
+		super(p_275343_, p_275729_, p_275322_, CreateWorkers.ID, existingFileHelper);
 		// TODO Auto-generated constructor stub
 	}
 

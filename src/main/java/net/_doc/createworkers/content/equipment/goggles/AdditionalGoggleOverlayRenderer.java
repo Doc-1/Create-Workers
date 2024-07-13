@@ -78,7 +78,6 @@ public class AdditionalGoggleOverlayRenderer {
 		Entity entity = result.getEntity();
 		BlockPos pos = entity.getOnPos();
 
-		int prevHoverTicks = hoverTicks;
 		hoverTicks++;
 		lastHovered = pos;
 
@@ -135,7 +134,6 @@ public class AdditionalGoggleOverlayRenderer {
 			}
 			if (!tooltip.isEmpty())
 				tooltip.add(Components.immutableEmpty());
-
 			tooltip.add(IHaveGoggleInformation.componentSpacing.plainCopy()
 					.append(Lang.translateDirect("gui.goggles.pole_length")).append(Components.literal(" " + poles)));
 		}

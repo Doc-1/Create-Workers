@@ -7,7 +7,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = CreateWorkers.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = CreateWorkers.ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class CWModEvents {
 
 	@SubscribeEvent
