@@ -9,6 +9,7 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.CreateClient;
 import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import com.simibubi.create.foundation.utility.Lang;
+import com.simibubi.create.foundation.utility.RaycastHelper;
 
 import net._doc.createworkers.items.CWItems;
 import net.minecraft.ChatFormatting;
@@ -24,6 +25,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -37,35 +39,37 @@ public class WorkerInteractionPointHandler {
 	static long lastBlockPos = -1;
 
 	@SubscribeEvent
-	public static void rightClickingBlocksSelectsThem(PlayerInteractEvent.RightClickBlock event) {
-		if (currentItem == null)
-			return;
-		BlockPos pos = event.getPos();
-		Level world = event.getLevel();
-		if (!world.isClientSide)
-			return;
-		Player player = event.getEntity();
-		if (player != null && player.isSpectator())
-			return;
-
-		WorkerInteractionPoint selected = getSelected(pos);
-		BlockState state = world.getBlockState(pos);
-
-		if (selected == null) {
-			WorkerInteractionPoint point = WorkerInteractionPoint.create(world, pos, state);
-			if (point == null)
+	public static void finishUsingItemSelectsThem(LivingEntityUseItemEvent.Finish event) {
+		if (event.getEntity() instanceof Player player) {
+			if (currentItem == null)
 				return;
-			selected = point;
-			put(point);
-		}
 
-		if (player != null) {
-			Lang.builder().translate("test", Lang.blockName(state).style(ChatFormatting.WHITE)).color(0x001111)
-					.sendStatus(player);
-		}
+			Level world = event.getEntity().level();
+			BlockPos pos = RaycastHelper.rayTraceRange(world, player, player.getBlockReach()).getBlockPos();
+			if (!world.isClientSide)
+				return;
+			if (player != null && player.isSpectator())
+				return;
 
-		event.setCanceled(true);
-		event.setCancellationResult(InteractionResult.SUCCESS);
+			ItemStack useItem = event.getItem();
+			if (useItem.getItem().equals(CWItems.HOLE_PUNCH.get())) {
+				WorkerInteractionPoint selected = getSelected(pos);
+				BlockState state = world.getBlockState(pos);
+				if (selected == null) {
+					WorkerInteractionPoint point = WorkerInteractionPoint.create(world, pos, state);
+					if (point == null)
+						return;
+					selected = point;
+					put(point);
+				}
+
+				if (player != null) {
+					Lang.builder().translate("test", Lang.blockName(state).style(ChatFormatting.WHITE)).color(0x001111)
+							.sendStatus(player);
+				}
+			}
+
+		}
 	}
 
 	@SubscribeEvent
@@ -91,7 +95,9 @@ public class WorkerInteractionPointHandler {
 			return;
 
 		ItemStack heldItemMainhand = player.getMainHandItem();
-		if (!heldItemMainhand.getItem().equals(CWItems.MAINSPRING.get())) {
+		ItemStack useItem = player.getUseItem();
+		int useTick = player.getUseItemRemainingTicks();
+		if (!heldItemMainhand.getItem().equals(CWItems.HOLE_PUNCH.get())) {
 			currentItem = null;
 		} else {
 			if (heldItemMainhand != currentItem) {

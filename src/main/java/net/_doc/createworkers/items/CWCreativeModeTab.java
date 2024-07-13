@@ -21,6 +21,7 @@ public class CWCreativeModeTab {
 					.displayItems((pParameters, pOutput) -> {
 						pOutput.accept(CWItems.MAINSPRING.get());
 						pOutput.accept(CWBlocks.TEMP_BLOCK.get());
+						pOutput.accept(CWItems.HOLE_PUNCHED_CARD.get());
 						pOutput.accept(CWItems.HOLE_PUNCH.get());
 					})
 
