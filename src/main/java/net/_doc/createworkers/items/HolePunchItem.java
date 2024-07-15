@@ -1,7 +1,12 @@
 package net._doc.createworkers.items;
 
+import java.util.function.Consumer;
+
+import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.VecHelper;
 
+import net._doc.createworkers.items.renderer.HolePunchItemRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
@@ -16,6 +21,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 public class HolePunchItem extends Item {
 
@@ -35,8 +43,18 @@ public class HolePunchItem extends Item {
 
 	@Override
 	public SoundEvent getDrinkingSound() {
-		// TODO Auto-generated method stub
 		return SoundEvents.AXE_STRIP;
+	}
+
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, Player player) {
+		return true;
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+		consumer.accept(SimpleCustomRenderer.create(this, new HolePunchItemRenderer()));
 	}
 
 	public static void spawnParticles(Vec3 location, ItemStack polishedStack, Level world) {
@@ -60,7 +78,7 @@ public class HolePunchItem extends Item {
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 		playerIn.startUsingItem(handIn);
-
+		playerIn.startUsingItem(InteractionHand.OFF_HAND);
 		return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 	}
 }

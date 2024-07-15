@@ -36,10 +36,10 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
 
 	@Override
 	public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
-		if (pHand.equals(InteractionHand.MAIN_HAND)) {
-			getTorquePower().currentTorque += 100;
-			return InteractionResult.SUCCESS;
-		}
+		/*
+		 * if (pHand.equals(InteractionHand.MAIN_HAND)) { getTorquePower().currentTorque
+		 * += 100; return InteractionResult.SUCCESS; }
+		 */
 		return InteractionResult.PASS;
 	}
 

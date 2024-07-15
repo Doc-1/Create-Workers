@@ -31,5 +31,7 @@ public class CWDataGenerator {
 		// new CWItemTagProvider(out, provider, tagProvider.contentsGetter(), helper));
 
 		gen.addProvider(true, new CWCreateHauntingProvider(out));
+		gen.addProvider(true, new CWCreateMixingProvider(out));
+		gen.addProvider(true, new CWCreatePressingProvider(out));
 	}
 }

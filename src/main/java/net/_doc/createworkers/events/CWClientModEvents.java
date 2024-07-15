@@ -42,4 +42,5 @@ public class CWClientModEvents {
 		event.registerAbove(VanillaGuiOverlay.HOTBAR.id(), "goggle_info_additional",
 				AdditionalGoggleOverlayRenderer.OVERLAY);
 	}
+
 }

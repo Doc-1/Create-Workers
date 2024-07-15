@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.simibubi.create.AllItems;
 import com.simibubi.create.CreateClient;
-import com.simibubi.create.content.kinetics.mechanicalArm.ArmBlockEntity;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.RaycastHelper;
 
@@ -25,8 +24,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -73,6 +74,15 @@ public class WorkerInteractionPointHandler {
 	}
 
 	@SubscribeEvent
+	public static void preventDestoryBlock(LivingDestroyBlockEvent event) {
+		if (event.getEntity() instanceof Player player)
+			if (CWItems.HOLE_PUNCH.isIn(player.getMainHandItem())) {
+				event.setCanceled(true);
+				event.setResult(Result.DENY);
+			}
+	}
+
+	@SubscribeEvent
 	public static void leftClickingBlocksDeselectsThem(PlayerInteractEvent.LeftClickBlock event) {
 		if (currentItem == null)
 			return;
@@ -95,8 +105,7 @@ public class WorkerInteractionPointHandler {
 			return;
 
 		ItemStack heldItemMainhand = player.getMainHandItem();
-		ItemStack useItem = player.getUseItem();
-		int useTick = player.getUseItemRemainingTicks();
+
 		if (!heldItemMainhand.getItem().equals(CWItems.HOLE_PUNCH.get())) {
 			currentItem = null;
 		} else {
@@ -125,11 +134,6 @@ public class WorkerInteractionPointHandler {
 		BlockPos pos = result.getBlockPos();
 
 		BlockEntity be = Minecraft.getInstance().level.getBlockEntity(pos);
-		if (!(be instanceof ArmBlockEntity)) {
-			lastBlockPos = -1;
-			currentSelection.clear();
-			return;
-		}
 
 		if (lastBlockPos == -1 || lastBlockPos != pos.asLong()) {
 			/*
