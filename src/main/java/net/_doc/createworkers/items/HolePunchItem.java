@@ -5,17 +5,25 @@ import java.util.function.Consumer;
 import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.VecHelper;
 
+import net._doc.createworkers.CWMenuTypes;
+import net._doc.createworkers.content.workers.menus.ScheduleWorkerMenu;
+import net._doc.createworkers.entities.Worker;
 import net._doc.createworkers.items.renderer.HolePunchItemRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
@@ -24,8 +32,9 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.minecraftforge.network.NetworkHooks;
 
-public class HolePunchItem extends Item {
+public class HolePunchItem extends Item implements MenuProvider {
 
 	public HolePunchItem(Properties pProperties) {
 		super(pProperties);
@@ -80,5 +89,29 @@ public class HolePunchItem extends Item {
 		playerIn.startUsingItem(handIn);
 		playerIn.startUsingItem(InteractionHand.OFF_HAND);
 		return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
+	}
+
+	public InteractionResult interactEntity(ItemStack pStack, Player pPlayer, Worker pInteractionTarget,
+			InteractionHand pUsedHand) {
+		if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
+			if (!pPlayer.level().isClientSide && pPlayer instanceof ServerPlayer)
+				NetworkHooks.openScreen((ServerPlayer) pPlayer, this, buf -> {
+					buf.writeItem(pPlayer.getMainHandItem());
+				});
+
+			return InteractionResult.CONSUME;
+		}
+		return InteractionResult.PASS;
+	}
+
+	@Override
+	public AbstractContainerMenu createMenu(int id, Inventory inv, Player player) {
+		ItemStack heldItem = player.getMainHandItem();
+		return new ScheduleWorkerMenu(CWMenuTypes.SCHEDULE_WORKER.get(), id, inv, heldItem);
+	}
+
+	@Override
+	public Component getDisplayName() {
+		return getDescription();
 	}
 }

@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "create_workers:construction_paper_pulp"
+    }
+  ],
+  "results": [
+    {
+      "item": "create_workers:hole_punched_card"
+    }
+  ]
+}

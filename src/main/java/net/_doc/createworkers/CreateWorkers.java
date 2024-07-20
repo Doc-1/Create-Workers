@@ -43,6 +43,7 @@ public class CreateWorkers {
 
 		CWItems.register();
 		CWCreativeModeTab.register(modEventBus);
+		CWMenuTypes.register();
 		CWBlocks.register();
 		CWEntities.register(modEventBus);
 		MinecraftForge.EVENT_BUS.register(this);

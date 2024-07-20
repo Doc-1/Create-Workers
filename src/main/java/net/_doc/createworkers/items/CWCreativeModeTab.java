@@ -22,8 +22,10 @@ public class CWCreativeModeTab {
 						pOutput.accept(CWItems.MAINSPRING.get());
 						pOutput.accept(CWBlocks.TEMP_BLOCK.get());
 						pOutput.accept(CWItems.HOLE_PUNCHED_CARD.get());
-						pOutput.accept(CWItems.HOLE_PUNCH.get());
-						pOutput.accept(CWItems.DENSE_PAPER_MUSH.get());
+						pOutput.accept(CWItems.HOLE_PUNCHER.get());
+						pOutput.accept(CWItems.CONSTRUCTION_PAPER_PULP.get());
+						pOutput.accept(CWItems.PAPER_PULP.get());
+						pOutput.accept(CWBlocks.KEYPUNCH.get());
 					})
 
 					.build());

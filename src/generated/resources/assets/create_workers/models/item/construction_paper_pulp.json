@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "create_workers:item/dense_paper_mush"
+    "layer0": "create_workers:item/construction_paper_pulp"
   }
 }

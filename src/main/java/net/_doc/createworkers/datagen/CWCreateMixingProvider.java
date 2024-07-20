@@ -15,8 +15,13 @@ import net.minecraft.world.level.material.Fluids;
 
 public class CWCreateMixingProvider extends ProcessingRecipeGen {
 
-	GeneratedRecipe PAPER_MUSH = createCW("paper_mush", b -> b.require(Fluids.WATER, 1000).require(Items.PAPER)
-			.require(Items.PAPER).require(Items.STRING).output(CWItems.DENSE_PAPER_MUSH));
+	GeneratedRecipe CONSTRUCTION_PAPER_PULP = createCW("construction_paper_pulp",
+			b -> b.require(Fluids.WATER, 200).require(CWItems.PAPER_PULP).require(CWItems.PAPER_PULP)
+					.require(Items.WHEAT).output(CWItems.CONSTRUCTION_PAPER_PULP)),
+			PAPER_PULP_FROM_PAPER = createCW("paper_pulp_from_paper",
+					b -> b.require(Fluids.WATER, 100).require(Items.PAPER).output(CWItems.PAPER_PULP)),
+			PAPER_PULP_FROM_CANE = createCW("paper_pulp_from_cane",
+					b -> b.require(Fluids.WATER, 100).require(Items.SUGAR_CANE).output(CWItems.PAPER_PULP, 3));
 
 	public CWCreateMixingProvider(PackOutput generator) {
 		super(generator);

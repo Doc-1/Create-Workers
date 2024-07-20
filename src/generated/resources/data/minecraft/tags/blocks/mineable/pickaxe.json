@@ -1,5 +1,6 @@
 {
   "values": [
-    "create_workers:temp_block"
+    "create_workers:temp_block",
+    "create_workers:keypunch"
   ]
 }

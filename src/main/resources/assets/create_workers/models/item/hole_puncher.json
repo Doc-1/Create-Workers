@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "create_workers:item/hole_punch",
-        "particle": "create_workers:item/hole_punch"
+		"0": "create_workers:item/hole_puncher",
+        "particle": "create_workers:item/hole_puncher"
 	},
 	"elements": [
-		{
+			{
 			"from": [7, 0, 7.475],
 			"to": [16, 1, 8.475],
 			"rotation": {"angle": 0, "axis": "y", "origin": [15.5, 0, 6.975]},

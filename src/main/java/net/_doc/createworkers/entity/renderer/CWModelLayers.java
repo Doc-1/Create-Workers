@@ -1,4 +1,4 @@
-package net._doc.createworkers.entity.rendering;
+package net._doc.createworkers.entity.renderer;
 
 import net._doc.createworkers.CreateWorkers;
 import net.minecraft.client.model.geom.ModelLayerLocation;

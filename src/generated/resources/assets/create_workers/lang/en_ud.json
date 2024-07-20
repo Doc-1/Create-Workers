@@ -1,7 +1,9 @@
 {
+  "block.create_workers.keypunch": "ɥɔundʎǝʞ",
   "block.create_workers.temp_block": "ʞɔoןᗺ dɯǝ⟘",
-  "item.create_workers.dense_paper_mush": "ɥsnW ɹǝdɐԀ ǝsuǝᗡ",
-  "item.create_workers.hole_punch": "ɥɔunԀ ǝןoH",
+  "item.create_workers.construction_paper_pulp": "dןnԀ ɹǝdɐԀ uoıʇɔnɹʇsuoƆ",
   "item.create_workers.hole_punched_card": "pɹɐƆ pǝɥɔunԀ ǝןoH",
-  "item.create_workers.mainspring": "buıɹdsuıɐW"
+  "item.create_workers.hole_puncher": "ɹǝɥɔunԀ ǝןoH",
+  "item.create_workers.mainspring": "buıɹdsuıɐW",
+  "item.create_workers.paper_pulp": "dןnԀ ɹǝdɐԀ"
 }

@@ -24,10 +24,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.living.LivingDestroyBlockEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -53,7 +51,7 @@ public class WorkerInteractionPointHandler {
 				return;
 
 			ItemStack useItem = event.getItem();
-			if (useItem.getItem().equals(CWItems.HOLE_PUNCH.get())) {
+			if (useItem.getItem().equals(CWItems.HOLE_PUNCHER.get())) {
 				WorkerInteractionPoint selected = getSelected(pos);
 				BlockState state = world.getBlockState(pos);
 				if (selected == null) {
@@ -71,15 +69,6 @@ public class WorkerInteractionPointHandler {
 			}
 
 		}
-	}
-
-	@SubscribeEvent
-	public static void preventDestoryBlock(LivingDestroyBlockEvent event) {
-		if (event.getEntity() instanceof Player player)
-			if (CWItems.HOLE_PUNCH.isIn(player.getMainHandItem())) {
-				event.setCanceled(true);
-				event.setResult(Result.DENY);
-			}
 	}
 
 	@SubscribeEvent
@@ -106,7 +95,7 @@ public class WorkerInteractionPointHandler {
 
 		ItemStack heldItemMainhand = player.getMainHandItem();
 
-		if (!heldItemMainhand.getItem().equals(CWItems.HOLE_PUNCH.get())) {
+		if (!heldItemMainhand.getItem().equals(CWItems.HOLE_PUNCHER.get())) {
 			currentItem = null;
 		} else {
 			if (heldItemMainhand != currentItem) {

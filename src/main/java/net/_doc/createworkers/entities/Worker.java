@@ -6,6 +6,7 @@ import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.utility.Lang;
 
 import net._doc.createworkers.content.logic.torque.TorquePower;
+import net._doc.createworkers.items.CWItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -36,10 +37,8 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
 
 	@Override
 	public InteractionResult interact(Player pPlayer, InteractionHand pHand) {
-		/*
-		 * if (pHand.equals(InteractionHand.MAIN_HAND)) { getTorquePower().currentTorque
-		 * += 100; return InteractionResult.SUCCESS; }
-		 */
+		if (pHand == InteractionHand.MAIN_HAND && CWItems.HOLE_PUNCHER.isIn(pPlayer.getMainHandItem()))
+			return CWItems.HOLE_PUNCHER.get().interactEntity(pPlayer.getMainHandItem(), pPlayer, this, pHand);
 		return InteractionResult.PASS;
 	}
 

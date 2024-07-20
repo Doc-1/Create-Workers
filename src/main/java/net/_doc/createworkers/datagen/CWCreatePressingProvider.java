@@ -11,12 +11,14 @@ import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net._doc.createworkers.CreateWorkers;
 import net._doc.createworkers.items.CWItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 
 public class CWCreatePressingProvider extends ProcessingRecipeGen {
 	GeneratedRecipe
 
-	SUGAR_CANE = createCW(() -> CWItems.DENSE_PAPER_MUSH, b -> b.output(CWItems.HOLE_PUNCHED_CARD));
+	CONSTRUCTION_PAPER = createCW(() -> CWItems.CONSTRUCTION_PAPER_PULP, b -> b.output(CWItems.HOLE_PUNCHED_CARD)),
+			PAPER = createCW(() -> CWItems.PAPER_PULP, b -> b.output(Items.PAPER));
 
 	public CWCreatePressingProvider(PackOutput generator) {
 		super(generator);

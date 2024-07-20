@@ -8,8 +8,8 @@ import net._doc.createworkers.content.equipment.goggles.AdditionalGoggleOverlayR
 import net._doc.createworkers.entities.CWEntities;
 import net._doc.createworkers.entities.CWFlywheelInstanceTest;
 import net._doc.createworkers.entity.model.CWSmallTransportRobotModel;
-import net._doc.createworkers.entity.rendering.CWModelLayers;
-import net._doc.createworkers.entity.rendering.CWSmallTransportRobotRenderer;
+import net._doc.createworkers.entity.renderer.CWModelLayers;
+import net._doc.createworkers.entity.renderer.CWSmallTransportRobotRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;

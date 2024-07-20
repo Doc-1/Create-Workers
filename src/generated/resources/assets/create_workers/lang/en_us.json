@@ -1,7 +1,9 @@
 {
+  "block.create_workers.keypunch": "Keypunch",
   "block.create_workers.temp_block": "Temp Block",
-  "item.create_workers.dense_paper_mush": "Dense Paper Mush",
-  "item.create_workers.hole_punch": "Hole Punch",
+  "item.create_workers.construction_paper_pulp": "Construction Paper Pulp",
   "item.create_workers.hole_punched_card": "Hole Punched Card",
-  "item.create_workers.mainspring": "Mainspring"
+  "item.create_workers.hole_puncher": "Hole Puncher",
+  "item.create_workers.mainspring": "Mainspring",
+  "item.create_workers.paper_pulp": "Paper Pulp"
 }

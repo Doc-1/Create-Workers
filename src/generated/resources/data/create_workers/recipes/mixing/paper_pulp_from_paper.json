@@ -5,20 +5,14 @@
       "item": "minecraft:paper"
     },
     {
-      "item": "minecraft:paper"
-    },
-    {
-      "item": "minecraft:string"
-    },
-    {
-      "amount": 1000,
+      "amount": 100,
       "fluid": "minecraft:water",
       "nbt": {}
     }
   ],
   "results": [
     {
-      "item": "create_workers:dense_paper_mush"
+      "item": "create_workers:paper_pulp"
     }
   ]
 }

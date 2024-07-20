@@ -1,2 +1,4 @@
-// 1.20.1	2024-07-14T18:24:52.5697041	Create's Processing Recipes: mixing
-0448401ba08fe6208b7e8716d1f26d7a463b2be6 data/create_workers/recipes/mixing/paper_mush.json
+// 1.20.1	2024-07-15T14:05:42.7502759	Create's Processing Recipes: mixing
+ffbb91bb284f73ccab9e8169832ba9763d17f884 data/create_workers/recipes/mixing/construction_paper_pulp.json
+3fab9189d7dca3b00877400d2cd0fbe678df61b0 data/create_workers/recipes/mixing/paper_pulp_from_cane.json
+f7deebdb2780df0f0bd51f3cdb9bcfa2c17a489d data/create_workers/recipes/mixing/paper_pulp_from_paper.json

@@ -1,0 +1,24 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "create_workers:paper_pulp"
+    },
+    {
+      "item": "create_workers:paper_pulp"
+    },
+    {
+      "item": "minecraft:wheat"
+    },
+    {
+      "amount": 200,
+      "fluid": "minecraft:water",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "create_workers:construction_paper_pulp"
+    }
+  ]
+}
