@@ -101,6 +101,7 @@ public class HolePunchItem extends Item implements MenuProvider {
 
 			return InteractionResult.CONSUME;
 		}
+
 		return InteractionResult.PASS;
 	}
 

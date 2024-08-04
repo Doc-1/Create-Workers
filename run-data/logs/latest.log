@@ -1,37 +1,40 @@
-[20Jul2024 11:33:04.064] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Doc\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.1, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, create_workers, --all, --output, C:\Repository\Create_Workers\src\generated\resources, --existing, C:\Repository\Create_Workers\src\main\resources]
-[20Jul2024 11:33:04.068] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.6 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
-[20Jul2024 11:33:04.158] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
-[20Jul2024 11:33:04.196] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Doc/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
-[20Jul2024 11:33:04.478] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.1\b9fa98d5c9fa107169a3390a1c8993d2134fbf54\javafmllanguage-1.20.1-47.3.1.jar is missing mods.toml file
-[20Jul2024 11:33:04.482] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.1\aaa252b4d4c34d0c02e647d7a2ef3df3bc11d73a\lowcodelanguage-1.20.1-47.3.1.jar is missing mods.toml file
-[20Jul2024 11:33:04.485] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.1\1722b26446496b5e686cdf124342e8f7fd33dc91\mclanguage-1.20.1-47.3.1.jar is missing mods.toml file
-[20Jul2024 11:33:04.489] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.1\4ed2bfe4ae3a6c27f587d45f58d648db68d19c00\fmlcore-1.20.1-47.3.1.jar is missing mods.toml file
-[20Jul2024 11:33:04.597] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[20Jul2024 11:33:05.961] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
-[20Jul2024 11:33:05.968] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Doc\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, create_workers, --all, --output, C:\Repository\Create_Workers\src\generated\resources, --existing, C:\Repository\Create_Workers\src\main\resources]
-[20Jul2024 11:33:06.257] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
-[20Jul2024 11:33:06.265] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
-[20Jul2024 11:33:06.266] [main/INFO] [mixin/]: Remapping refMap create.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
-[20Jul2024 11:33:06.965] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [create_workers]
-[20Jul2024 11:33:10.742] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.1, for MC 1.20.1 with MCP 20230612.114412
-[20Jul2024 11:33:10.743] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.1 Initialized
-[20Jul2024 11:33:10.862] [modloading-worker-0/INFO] [com.jozufozu.flywheel.backend.Backend/]: No shaders mod detected.
-[20Jul2024 11:33:11.091] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
-[20Jul2024 11:33:11.095] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 3.138 ms
-[20Jul2024 11:33:13.147] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Doc/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.1_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.3.1_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/assets/.mcassetsroot' uses unexpected schema
-[20Jul2024 11:33:13.148] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/C:/Users/Doc/.gradle/caches/forge_gradle/minecraft_user_repo/net/minecraftforge/forge/1.20.1-47.3.1_mapped_parchment_2023.09.03-1.20.1/forge-1.20.1-47.3.1_mapped_parchment_2023.09.03-1.20.1-recomp.jar%23191!/data/.mcassetsroot' uses unexpected schema
-[20Jul2024 11:33:13.362] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registrate Provider for create_workers [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
-[20Jul2024 11:33:13.540] [main/INFO] [net.minecraft.data.DataGenerator/]: Registrate Provider for create_workers [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider] finished after 178 ms
-[20Jul2024 11:33:13.540] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Item Models: create_workers
-[20Jul2024 11:33:13.540] [main/INFO] [net.minecraft.data.DataGenerator/]: Item Models: create_workers finished after 0 ms
-[20Jul2024 11:33:13.540] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Create's Processing Recipes: haunting
-[20Jul2024 11:33:13.545] [main/INFO] [com.simibubi.create.Create/]: Create's Processing Recipes: haunting registered 1 recipe
-[20Jul2024 11:33:13.545] [main/INFO] [net.minecraft.data.DataGenerator/]: Create's Processing Recipes: haunting finished after 4 ms
-[20Jul2024 11:33:13.545] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Create's Processing Recipes: mixing
-[20Jul2024 11:33:13.548] [main/INFO] [com.simibubi.create.Create/]: Create's Processing Recipes: mixing registered 3 recipes
-[20Jul2024 11:33:13.548] [main/INFO] [net.minecraft.data.DataGenerator/]: Create's Processing Recipes: mixing finished after 3 ms
-[20Jul2024 11:33:13.548] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Create's Processing Recipes: pressing
-[20Jul2024 11:33:13.548] [main/INFO] [com.simibubi.create.Create/]: Create's Processing Recipes: pressing registered 2 recipes
-[20Jul2024 11:33:13.549] [main/INFO] [net.minecraft.data.DataGenerator/]: Create's Processing Recipes: pressing finished after 0 ms
-[20Jul2024 11:33:13.549] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 188 ms
-[20Jul2024 11:33:13.557] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 22, old count: 22, new count: 23, removed stale: 0, written: 1
+[03Aug2024 12:06:03.910] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgedatauserdev, --assetIndex, 5, --assetsDir, C:\Users\Doc\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 47.3.1, --fml.mcVersion, 1.20.1, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20230612.114412, --mod, create_workers, --all, --output, C:\Repository\Create_Workers\src\generated\resources, --existing, C:\Repository\Create_Workers\src\main\resources]
+[03Aug2024 12:06:03.928] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 10.0.9+10.0.9+main.dcd20f30 starting: java version 17.0.6 by Eclipse Adoptium; OS Windows 10 arch amd64 version 10.0
+[03Aug2024 12:06:04.029] [main/INFO] [net.minecraftforge.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatauserdev
+[03Aug2024 12:06:04.078] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Doc/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%23128!/ Service=ModLauncher Env=CLIENT
+[03Aug2024 12:06:04.358] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.20.1-47.3.1\b9fa98d5c9fa107169a3390a1c8993d2134fbf54\javafmllanguage-1.20.1-47.3.1.jar is missing mods.toml file
+[03Aug2024 12:06:04.361] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.20.1-47.3.1\aaa252b4d4c34d0c02e647d7a2ef3df3bc11d73a\lowcodelanguage-1.20.1-47.3.1.jar is missing mods.toml file
+[03Aug2024 12:06:04.364] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.20.1-47.3.1\1722b26446496b5e686cdf124342e8f7fd33dc91\mclanguage-1.20.1-47.3.1.jar is missing mods.toml file
+[03Aug2024 12:06:04.367] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Doc\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.20.1-47.3.1\4ed2bfe4ae3a6c27f587d45f58d648db68d19c00\fmlcore-1.20.1-47.3.1.jar is missing mods.toml file
+[03Aug2024 12:06:04.479] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[03Aug2024 12:06:06.133] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[03Aug2024 12:06:06.147] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatauserdev' with arguments [--gameDir, ., --assetsDir, C:\Users\Doc\.gradle\caches\forge_gradle\assets, --assetIndex, 5, --mod, create_workers, --all, --output, C:\Repository\Create_Workers\src\generated\resources, --existing, C:\Repository\Create_Workers\src\main\resources]
+[03Aug2024 12:06:06.461] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
+[03Aug2024 12:06:06.470] [main/INFO] [mixin/]: Remapping refMap flywheel.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
+[03Aug2024 12:06:06.472] [main/INFO] [mixin/]: Remapping refMap create.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
+[03Aug2024 12:06:06.474] [main/INFO] [mixin/]: Remapping refMap creativecore.mixins.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
+[03Aug2024 12:06:06.476] [main/INFO] [mixin/]: Remapping refMap creativecore.mixins.refmap.json using C:\Repository\Create_Workers/build/createSrgToMcp/output.srg
+[03Aug2024 12:06:07.321] [main/INFO] [net.minecraftforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [create_workers]
+[03Aug2024 12:06:11.650] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 47.3.1, for MC 1.20.1 with MCP 20230612.114412
+[03Aug2024 12:06:11.651] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v47.3.1 Initialized
+[03Aug2024 12:06:11.763] [modloading-worker-0/ERROR] [net.minecraftforge.fml.javafmlmod.FMLModContainer/LOADING]: Failed to create mod instance. ModID: creativecore, class team.creative.creativecore.CreativeCore
+java.lang.NoSuchFieldError: f_256982_
+	at team.creative.creativecore.CreativeCore.<clinit>(CreativeCore.java:67) ~[CreativeCore_FORGE_v2.11.32_mc1.20.1.jar%23200!/:2.11.32]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) ~[?:?]
+	at jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77) ~[?:?]
+	at jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) ~[?:?]
+	at java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499) ~[?:?]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:480) ~[?:?]
+	at net.minecraftforge.fml.javafmlmod.FMLModContainer.constructMod(FMLModContainer.java:70) ~[javafmllanguage-1.20.1-47.3.1.jar%23192!/:?]
+	at net.minecraftforge.fml.ModContainer.lambda$buildTransitionHandler$4(ModContainer.java:124) ~[fmlcore-1.20.1-47.3.1.jar%23195!/:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) ~[?:?]
+	at java.util.concurrent.CompletableFuture$AsyncRun.exec(CompletableFuture.java:1796) ~[?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) ~[?:?]
+	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) ~[?:?]
+	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) ~[?:?]
+	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) ~[?:?]
+[03Aug2024 12:06:11.817] [modloading-worker-0/INFO] [com.jozufozu.flywheel.backend.Backend/]: No shaders mod detected.
+[03Aug2024 12:06:12.050] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[03Aug2024 12:06:12.060] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 3.598 ms
+[03Aug2024 12:06:13.623] [main/FATAL] [net.minecraftforge.fml.ModLoader/LOADING]: Failed to complete lifecycle event CONSTRUCT, 1 errors found

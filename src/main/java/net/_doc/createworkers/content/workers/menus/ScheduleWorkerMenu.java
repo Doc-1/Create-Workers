@@ -32,7 +32,7 @@ public class ScheduleWorkerMenu extends GhostItemMenu<ItemStack> {
 
 	@Override
 	protected ItemStack createOnClient(FriendlyByteBuf extraData) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubx
 		return null;
 	}
 

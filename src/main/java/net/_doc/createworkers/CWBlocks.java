@@ -8,7 +8,7 @@ import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
-import net._doc.createworkers.content.workers.blocks.KeypunchBlock;
+import net._doc.createworkers.content.blocks.keypunch.KeypunchBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.Tags;

@@ -46,12 +46,14 @@ public class CreateWorkers {
 		CWMenuTypes.register();
 		CWBlocks.register();
 		CWEntities.register(modEventBus);
+		CWBlockEntities.register();
 		MinecraftForge.EVENT_BUS.register(this);
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
 		CWWorkerInteractionPointTypes.register();
 
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> CWClient.onCtorClient(modEventBus, forgeEventBus));
+		// System.out.println(CreativeCore.MODID);
 
 	}
 
