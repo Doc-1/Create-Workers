@@ -10,19 +10,18 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 public class CWItemModelProvider extends ItemModelProvider {
-
-	public CWItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-		super(output, CreateWorkers.ID, existingFileHelper);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	protected void registerModels() {
-	}
-
-	private ItemModelBuilder simpleItem(RegistryObject<Item> itemRegObj) {
-		return withExistingParent(itemRegObj.getId().getPath(), new ResourceLocation("item/generated"))
-				.texture("layer0", new ResourceLocation(CreateWorkers.ID, "item/" + itemRegObj.getId().getPath()));
-	}
-
+    
+    public CWItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+        super(output, CreateWorkers.ID, existingFileHelper);
+        // TODO Auto-generated constructor stub
+    }
+    
+    @Override
+    protected void registerModels() {}
+    
+    private ItemModelBuilder simpleItem(RegistryObject<Item> itemRegObj) {
+        return withExistingParent(itemRegObj.getId().getPath(), new ResourceLocation("item/generated"))
+                .texture("layer0", new ResourceLocation(CreateWorkers.ID, "item/" + itemRegObj.getId().getPath()));
+    }
+    
 }

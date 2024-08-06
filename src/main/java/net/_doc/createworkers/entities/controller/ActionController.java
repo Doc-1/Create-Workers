@@ -7,42 +7,41 @@ import net._doc.createworkers.entities.controller.actions.Action;
 import net.minecraft.util.RandomSource;
 
 public class ActionController {
-
-	protected final RandomSource random = RandomSource.create();
-	private List<Action> steps = new ArrayList<>();
-	private int selectedIndex = 0;
-
-	public ActionController() {
-	}
-
-	public void add(Action action) {
-		this.steps.add(action);
-	}
-
-	public List<Action> getSteps() {
-		return steps;
-	}
-
-	public void setSteps(List<Action> steps) {
-		this.steps = steps;
-	}
-
-	public boolean tick() {
-		if (steps.size() > selectedIndex) {
-			Action action = steps.get(selectedIndex);
-			if (action.getEntity().getTorquePower().hasEnoughTorque(action.torqueCost())) {
-				if (action.tick())
-					action.start();
-				if (action.hasCompleted()) {
-					action.end();
-					selectedIndex++;
-				}
-			}
-			return false;
-		}
-		selectedIndex = 0;
-		return true;
-	}
+    
+    protected final RandomSource random = RandomSource.create();
+    private List<Action> steps = new ArrayList<>();
+    private int selectedIndex = 0;
+    
+    public ActionController() {}
+    
+    public void add(Action action) {
+        this.steps.add(action);
+    }
+    
+    public List<Action> getSteps() {
+        return steps;
+    }
+    
+    public void setSteps(List<Action> steps) {
+        this.steps = steps;
+    }
+    
+    public boolean tick() {
+        if (steps.size() > selectedIndex) {
+            Action action = steps.get(selectedIndex);
+            if (action.getEntity().getTorquePower().hasEnoughTorque(action.torqueCost())) {
+                if (action.tick())
+                    action.start();
+                if (action.hasCompleted()) {
+                    action.end();
+                    selectedIndex++;
+                }
+            }
+            return false;
+        }
+        selectedIndex = 0;
+        return true;
+    }
 }
 /*
  * if (entity.isStuck()) { entity.alarmTicks++; if (entity.stuckTicks >= 60 &&

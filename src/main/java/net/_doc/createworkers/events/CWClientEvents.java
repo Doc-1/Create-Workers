@@ -10,16 +10,16 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = CreateWorkers.ID, value = Dist.CLIENT)
 public class CWClientEvents {
-
-	@SubscribeEvent
-	public static void onTick(ClientTickEvent event) {
-		if (!isGameActive())
-			return;
-		WorkerInteractionPointHandler.tick();
-	}
-
-	@SuppressWarnings("resource")
-	protected static boolean isGameActive() {
-		return !(Minecraft.getInstance().level == null || Minecraft.getInstance().player == null);
-	}
+    
+    @SubscribeEvent
+    public static void onTick(ClientTickEvent event) {
+        if (!isGameActive())
+            return;
+        WorkerInteractionPointHandler.tick();
+    }
+    
+    @SuppressWarnings("resource")
+    protected static boolean isGameActive() {
+        return !(Minecraft.getInstance().level == null || Minecraft.getInstance().player == null);
+    }
 }
