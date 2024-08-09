@@ -1,4 +1,4 @@
-package net._doc.createworkers.entity.animations;
+package net._doc.createworkers.registeries;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;

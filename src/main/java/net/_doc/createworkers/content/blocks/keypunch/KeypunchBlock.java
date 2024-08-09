@@ -1,9 +1,9 @@
 package net._doc.createworkers.content.blocks.keypunch;
 
 import com.simibubi.create.AllShapes;
-import com.simibubi.create.AllSoundEvents;
 import com.simibubi.create.foundation.block.IBE;
 
+import net._doc.createworkers.content.blocks.keypunch.gui.GuiKeypunch;
 import net._doc.createworkers.registeries.CWBlockEntities;
 import net._doc.createworkers.registeries.CWGui;
 import net.minecraft.core.BlockPos;
@@ -52,15 +52,7 @@ public class KeypunchBlock extends Block implements IBE<KeypunchBlockEntity>, Bl
     @Override
     public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
         
-        InteractionResult result = onBlockEntityUse(pLevel, pPos, station -> {
-            if (pLevel.isClientSide)
-                return InteractionResult.PASS;
-            station.notifyUpdate();
-            AllSoundEvents.playItemPickup(pPlayer);
-            return InteractionResult.SUCCESS;
-        });
-        
-        if (result == InteractionResult.PASS)
+        if (pLevel.isClientSide)
             CWGui.KEYPUNCH.open(pPlayer, pPos);
         return InteractionResult.SUCCESS;
     }
