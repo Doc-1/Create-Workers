@@ -1,19 +1,23 @@
 package net._doc.createworkers.common.gui.controls.simple;
 
-public class GuiScrollFloatField extends GuiScrollNumberField<Float> {
+import org.joml.Math;
+
+public class GuiScrollIntegerField extends GuiScrollNumberField<Integer> {
     
-    public GuiScrollFloatField(String name, String text) {
+    public GuiScrollIntegerField(String name, String text) {
         super(name, text);
-        this.setFloatOnly();
+        this.setNumbersOnly();
     }
     
     @Override
-    public GuiScrollFloatField setMaxDecimalOnly(Float max) {
+    public GuiScrollIntegerField setMaxDecimalOnly(Integer max) {
+        this.min = Integer.MIN_VALUE;
+        this.max = max;
         this.setValidator((x) -> {
             if (x.isEmpty())
                 return true;
             try {
-                return Float.parseFloat(x) < max;
+                return Integer.parseInt(x) <= max;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -22,12 +26,14 @@ public class GuiScrollFloatField extends GuiScrollNumberField<Float> {
     }
     
     @Override
-    public GuiScrollFloatField setMinDecimalOnly(Float min) {
+    public GuiScrollIntegerField setMinDecimalOnly(Integer min) {
+        this.min = min;
+        this.max = Integer.MAX_VALUE;
         this.setValidator((x) -> {
             if (x.isEmpty())
                 return true;
             try {
-                return Float.parseFloat(x) > min;
+                return Integer.parseInt(x) >= min;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -36,12 +42,14 @@ public class GuiScrollFloatField extends GuiScrollNumberField<Float> {
     }
     
     @Override
-    public GuiScrollFloatField setMinMaxDciaml(Float min, Float max) {
+    public GuiScrollIntegerField setMinMaxDciaml(Integer min, Integer max) {
+        this.min = min;
+        this.max = max;
         this.setValidator((x) -> {
             if (x.isEmpty())
                 return true;
             try {
-                return Float.parseFloat(x) < max && Float.parseFloat(x) > min;
+                return Integer.parseInt(x) <= max && Integer.parseInt(x) >= min;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -52,9 +60,11 @@ public class GuiScrollFloatField extends GuiScrollNumberField<Float> {
     
     @Override
     public void scrollValue(int delta, boolean isShift) {
-        float value = delta > 0 ? 0.1F : -0.1F;
-        value = isShift ? 0.5F : value;
-        value += Float.parseFloat(this.getText());
+        int value = delta > 0 ? 1 : -1;
+        value *= isShift ? 5 : 1;
+        value += Integer.parseInt(this.getText());
+        value = Math.clamp(min, max, value);
         this.setText(String.valueOf(value));
     }
+    
 }

@@ -21,8 +21,17 @@ public class GuiScrollComboBox extends GuiComboBox {
     public GuiScrollComboBox(String name, String title, ITextCollection builder) {
         super(name, builder);
         this.title = title;
+        
         this.setTooltip(this.tooltip());
         
+    }
+    
+    @Override
+    public int preferredHeight(int width, int availableHeight) {
+        int height = 10;
+        for (CompiledText text : lines)
+            height = Math.max(height, text.getTotalHeight());
+        return height;
     }
     
     public List<Component> tooltip() {
