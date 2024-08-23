@@ -1,5 +1,7 @@
 package net._doc.createworkers.content.blocks.keypunch.gui;
 
+import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
+
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
 import net._doc.createworkers.common.gui.controls.collection.GuiScrollComboBox;
 import net._doc.createworkers.common.gui.controls.inventory.GuiSlotIcon;
@@ -37,7 +39,7 @@ public class GuiConditionSettings extends GuiParent {
             textList.add("Ticks");
             textList.add("Seconds");
             textList.add("Minutes");
-            x.add(new GuiScrollComboBox("", "Time Unit:", textList).setDim(70, 10));
+            x.add(new GuiScrollComboBox("", Component.literal("Time Unit:").withStyle(s -> s.withColor(AbstractSimiWidget.HEADER_RGB)), textList).setDim(70, 10));
         }),
         
         TIME_OF_DAY(x -> {

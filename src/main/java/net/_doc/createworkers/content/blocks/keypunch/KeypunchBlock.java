@@ -75,6 +75,7 @@ public class KeypunchBlock extends Block implements IBE<KeypunchBlockEntity>, Bl
     
     @Override
     public GuiLayer create(CompoundTag nbt, Level level, BlockPos pos, BlockState state, Player player) {
+        System.out.println(nbt);
         return new GuiKeypunch();
     }
 }

@@ -5,6 +5,7 @@ public class GuiScrollFloatField extends GuiScrollNumberField<Float> {
     public GuiScrollFloatField(String name, String text) {
         super(name, text);
         this.setFloatOnly();
+        this.setMinMaxDciaml(Float.MIN_VALUE, Float.MAX_VALUE);
     }
     
     @Override
@@ -37,6 +38,8 @@ public class GuiScrollFloatField extends GuiScrollNumberField<Float> {
     
     @Override
     public GuiScrollFloatField setMinMaxDciaml(Float min, Float max) {
+        this.min = min;
+        this.max = max;
         this.setValidator((x) -> {
             if (x.isEmpty())
                 return true;

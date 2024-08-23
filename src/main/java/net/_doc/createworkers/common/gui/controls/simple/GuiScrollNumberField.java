@@ -38,7 +38,7 @@ public abstract class GuiScrollNumberField<T extends Number> extends GuiTextfiel
         scrollValue((int) delta, Screen.hasShiftDown());
         if (!v.equals(this.getText()))
             playSound(SimpleSoundInstance.forUI(AllSoundEvents.SCROLL_VALUE.getMainEvent(), 1.5f + 0.1f * Float.parseFloat(getText()) / ((Number) this.max).floatValue()));
-        return super.mouseScrolled(rect, x, y, delta);
+        return true;
     }
     
     public List<Component> tooltip() {

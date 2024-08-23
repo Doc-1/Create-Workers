@@ -7,6 +7,8 @@ public class GuiScrollIntegerField extends GuiScrollNumberField<Integer> {
     public GuiScrollIntegerField(String name, String text) {
         super(name, text);
         this.setNumbersOnly();
+        
+        this.setMinMaxDciaml(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
     
     @Override

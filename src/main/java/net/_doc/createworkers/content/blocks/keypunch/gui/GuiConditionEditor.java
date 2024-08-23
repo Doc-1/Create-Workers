@@ -1,5 +1,7 @@
 package net._doc.createworkers.content.blocks.keypunch.gui;
 
+import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
+
 import net._doc.createworkers.common.gui.controls.collection.GuiScrollComboBox;
 import net._doc.createworkers.common.gui.controls.inventory.GuiInventoryGridCustom;
 import net.minecraft.ChatFormatting;
@@ -44,7 +46,7 @@ public class GuiConditionEditor extends GuiLayer {
         test.add("Item Cargo Condition");
         test.add("Redstone Link");
         test.add("Cargo Inactivity");
-        top.add(new GuiScrollComboBox("comboBox", "Continue if/after:", test));
+        top.add(new GuiScrollComboBox("comboBox", Component.literal("Continue if/after:").withStyle(s -> s.withColor(AbstractSimiWidget.HEADER_RGB)), test));
         top.add(new GuiConditionSettings("set"));
         
         this.add(top);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -16,9 +15,9 @@ import team.creative.creativecore.common.util.math.geo.Rect;
 import team.creative.creativecore.common.util.text.ITextCollection;
 
 public class GuiScrollComboBox extends GuiComboBox {
-    public String title;
+    public Component title;
     
-    public GuiScrollComboBox(String name, String title, ITextCollection builder) {
+    public GuiScrollComboBox(String name, Component title, ITextCollection builder) {
         super(name, builder);
         this.title = title;
         
@@ -36,7 +35,7 @@ public class GuiScrollComboBox extends GuiComboBox {
     
     public List<Component> tooltip() {
         List<Component> customTooltip = new ArrayList<Component>();
-        customTooltip.add(Component.literal(title).withStyle(s -> s.withColor(AbstractSimiWidget.HEADER_RGB)));
+        customTooltip.add(title);
         int x = 0;
         for (CompiledText d : lines) {
             for (Component a : d.untrimmedContent())
