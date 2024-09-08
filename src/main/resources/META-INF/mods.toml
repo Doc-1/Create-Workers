@@ -6,7 +6,7 @@ license="LGPL-3.0-only"
 [[mods]]
     modId="create_workers"
     logoFile="create_workers.png"
-    version="0.0.1-1.20.1"
+    version="0.0.1"
     displayName="Create-Workers"
     displayURL="https://github.com/Doc-1/Create-Workers"
     authors="_Doc"
@@ -33,4 +33,11 @@ Newline characters can be used and will be replaced properly.'''
    ordering="NONE"
    side="BOTH"
    versionRange="2.11.14"
+
+[[dependencies.create_workers]]
+   modId="creativecore_guiexpansion"
+   mandatory=true
+   ordering="NONE"
+   side="BOTH"
+   versionRange="0.0.1"
 

@@ -5,6 +5,10 @@ import team.creative.creativecore.common.gui.controls.parent.GuiScrollX;
 import team.creative.creativecore.common.util.math.geo.Rect;
 
 public class GuiScrollXCustom extends GuiScrollX {
+    @Override
+    protected int preferredHeight(int width, int availableHeight) {
+        return super.preferredHeight(width, availableHeight) + scrollbarHeight;
+    }
     
     @Override
     public boolean mouseScrolled(Rect rect, double x, double y, double scrolled) {

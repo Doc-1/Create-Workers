@@ -3,9 +3,9 @@ package net._doc.createworkers.content.blocks.keypunch.gui;
 import com.simibubi.create.foundation.gui.widget.AbstractSimiWidget;
 
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
+import net._doc.ccgexpansion.common.gui.controls.simple.GuiScrollIntegerField;
 import net._doc.createworkers.common.gui.controls.collection.GuiScrollComboBox;
 import net._doc.createworkers.common.gui.controls.inventory.GuiSlotIcon;
-import net._doc.createworkers.common.gui.controls.simple.GuiScrollIntegerField;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -34,7 +34,7 @@ public class GuiConditionSettings extends GuiParent {
     
     public enum ConditionSettings {
         SCHEDULED_DALEY(x -> {
-            x.add(new GuiScrollIntegerField("Duration:", "0").setMinMaxDciaml(0, 120));
+            x.add(new GuiScrollIntegerField("Duration:", "0", true).setMinMaxNumber(0, 120));
             TextListBuilder textList = new TextListBuilder();
             textList.add("Ticks");
             textList.add("Seconds");

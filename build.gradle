@@ -11,6 +11,7 @@ group= "net._doc" + project.mod_id
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 project.evaluationDependsOn(":CreativeCore")
+project.evaluationDependsOn(":CreativeCore_GuiExpansion")
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 minecraft {
@@ -31,6 +32,9 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', mod_id
             mods {
+            	creativecore_guiexpansion {
+                    source project(':CreativeCore_GuiExpansion').sourceSets.main
+                }
                 creativecore {
                     source project(':CreativeCore').sourceSets.main
                 }
@@ -54,6 +58,9 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', mod_id
             mods {
+                creativecore_guiexpansion {
+                    source project(':CreativeCore_GuiExpansion').sourceSets.main
+                }
                 creativecore {
                     source project(':CreativeCore').sourceSets.main
                 }
@@ -79,6 +86,9 @@ minecraft {
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
    			mods {
+   				creativecore_guiexpansion {
+                    source project(':CreativeCore_GuiExpansion').sourceSets.main
+                }
                 creativecore {
                     source project(':CreativeCore').sourceSets.main
                 }
@@ -124,6 +134,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${project.property 'minecraft_version'}-${project.property 'forge_version'}"
     
     implementation project(':CreativeCore')
+    implementation project(':CreativeCore_GuiExpansion')
 	
   	implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
@@ -140,7 +151,9 @@ dependencies {
 }
 
 modDependencies = [
-    [ modId: "creativecore", mandatory: true, ordering: "NONE", side: "BOTH", versionRange: creativecore_version ]
+    [ modId: "creativecore", mandatory: true, ordering: "NONE", side: "BOTH", versionRange: creativecore_version ],
+    [ modId: "creativecore_guiexpansion", mandatory: true, ordering: "NONE", side: "BOTH", versionRange: "0.0.1" ]
+    
 ]
 
 jar {

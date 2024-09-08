@@ -6,11 +6,9 @@ import com.simibubi.create.foundation.item.render.SimpleCustomRenderer;
 import com.simibubi.create.foundation.utility.VecHelper;
 
 import net._doc.createworkers.content.items.renderer.HolePunchItemRenderer;
-import net._doc.createworkers.entities.Worker;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -27,9 +25,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
-public class HolePunchItem extends Item {
+public class HolePuncherItem extends Item {
     
-    public HolePunchItem(Properties pProperties) {
+    public HolePuncherItem(Properties pProperties) {
         super(pProperties);
     }
     
@@ -80,18 +78,6 @@ public class HolePunchItem extends Item {
         playerIn.startUsingItem(handIn);
         playerIn.startUsingItem(InteractionHand.OFF_HAND);
         return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
-    }
-    
-    public InteractionResult interactEntity(ItemStack pStack, Player pPlayer, Worker pInteractionTarget, InteractionHand pUsedHand) {
-        if (!pPlayer.isShiftKeyDown() && pUsedHand == InteractionHand.MAIN_HAND) {
-            if (!pPlayer.level().isClientSide && pPlayer instanceof ServerPlayer) {
-                
-            }
-            
-            return InteractionResult.CONSUME;
-        }
-        
-        return InteractionResult.PASS;
     }
     
 }

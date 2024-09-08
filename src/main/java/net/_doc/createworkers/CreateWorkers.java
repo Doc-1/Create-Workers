@@ -44,7 +44,6 @@ public class CreateWorkers {
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
-        
         CWItems.register();
         CWCreativeModeTab.register(modEventBus);
         CWGui.register();
