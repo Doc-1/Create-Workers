@@ -4,8 +4,8 @@ import com.simibubi.create.foundation.data.AssetLookup;
 import com.tterrag.registrate.util.entry.ItemEntry;
 
 import net._doc.createworkers.CreateWorkers;
-import net._doc.createworkers.content.items.HolePuncherItem;
-import net._doc.createworkers.content.items.HolePunchedCardItem;
+import net._doc.createworkers.items.HolePunchedCardItem;
+import net._doc.createworkers.items.HolePuncherItem;
 import net.minecraft.world.item.Item;
 
 public class CWItems {

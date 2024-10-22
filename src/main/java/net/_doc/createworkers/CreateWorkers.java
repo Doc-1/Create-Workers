@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 
-import net._doc.createworkers.content.workers.CWWorkerInteractionPointTypes;
 import net._doc.createworkers.registeries.CWBlockEntities;
 import net._doc.createworkers.registeries.CWBlocks;
 import net._doc.createworkers.registeries.CWClient;
@@ -13,6 +12,7 @@ import net._doc.createworkers.registeries.CWCreativeModeTab;
 import net._doc.createworkers.registeries.CWEntities;
 import net._doc.createworkers.registeries.CWGui;
 import net._doc.createworkers.registeries.CWItems;
+import net._doc.createworkers.worker_interactions.CWWorkerInteractionPointTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;

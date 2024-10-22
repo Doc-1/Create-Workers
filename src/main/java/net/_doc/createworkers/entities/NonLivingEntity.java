@@ -2,8 +2,8 @@ package net._doc.createworkers.entities;
 
 import java.util.List;
 
-import net._doc.createworkers.entities.controller.ActionController;
 import net._doc.createworkers.registeries.CWItems;
+import net._doc.createworkers.worker_interactions.controller.ActionController;
 import net.minecraft.BlockUtil;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

@@ -20,7 +20,7 @@ public class CWCreativeModeTab {
                 pOutput.accept(CWItems.HOLE_PUNCHER.get());
                 pOutput.accept(CWItems.CONSTRUCTION_PAPER_PULP.get());
                 pOutput.accept(CWItems.PAPER_PULP.get());
-                pOutput.accept(CWBlocks.KEYPUNCH.get());
+                pOutput.accept(CWBlocks.BASIC_WORKER_BODY.get());
             })
             
             .build());

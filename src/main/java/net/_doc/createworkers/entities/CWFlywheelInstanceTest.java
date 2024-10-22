@@ -20,34 +20,34 @@ import net.minecraft.world.phys.Vec3;
 
 public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest> implements DynamicInstance {
     private static PoseStack stack = new PoseStack();
-    private final ModelData model;
-    private final ModelData model2;
+    private final ModelData cogwheel;
+    private final ModelData body;
     private final ModelData storageModel;
     
     public CWFlywheelInstanceTest(MaterialManager materialManager, CWFlywheelEntityTest entity) {
         super(materialManager, entity);
         
-        model = materialManager.defaultSolid().material(Materials.TRANSFORMED).getModel(AllPartialModels.SHAFTLESS_COGWHEEL).createInstance();
-        model2 = materialManager.defaultSolid().material(Materials.TRANSFORMED).getModel(CWBlocks.TEMP_BLOCK.getDefaultState()).createInstance();
+        cogwheel = materialManager.defaultSolid().material(Materials.TRANSFORMED).getModel(AllPartialModels.SHAFTLESS_COGWHEEL).createInstance();
+        body = materialManager.defaultSolid().material(Materials.TRANSFORMED).getModel(CWBlocks.TEMP_BLOCK.getDefaultState()).createInstance();
         this.storageModel = materialManager.defaultSolid().material(Materials.TRANSFORMED).getModel(AllBlocks.ITEM_VAULT.getDefaultState()).createInstance();
         
-        model.loadIdentity().translate(getInstancePosition()).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), 0).unCentre();
-        model2.loadIdentity().translate(getInstancePosition());
+        cogwheel.loadIdentity().translate(getInstancePosition()).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), 0).unCentre();
+        body.loadIdentity().translate(getInstancePosition());
         this.storageModel.loadIdentity().translate(getInstancePosition());
         
     }
     
     @Override
     protected void remove() {
-        model.delete();
-        model2.delete();
+        cogwheel.delete();
+        body.delete();
         storageModel.delete();
     }
     
     @Override
     public void updateLight() {
-        relight(getWorldPosition(), model);
-        relight(getWorldPosition(), model2);
+        relight(getWorldPosition(), cogwheel);
+        relight(getWorldPosition(), body);
         relight(getWorldPosition(), storageModel);
     }
     
@@ -84,8 +84,8 @@ public class CWFlywheelInstanceTest extends EntityInstance<CWFlywheelEntityTest>
             rot = entity.getIndependentAngle(pt);
         }
         tstack.translate(x, y, z);
-        model2.loadIdentity().setTransform(stack).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), -yaw).unCentre();
-        model.loadIdentity().setTransform(stack).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), rot).unCentre();
+        body.loadIdentity().setTransform(stack).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), -yaw).unCentre();
+        cogwheel.loadIdentity().setTransform(stack).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), rot).unCentre();
         
         tstack.translate(0, 0.75, 0);
         storageModel.loadIdentity().setTransform(stack).centre().rotate(Direction.get(Direction.AxisDirection.POSITIVE, Axis.Y), -yaw).unCentre();

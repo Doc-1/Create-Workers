@@ -9,7 +9,7 @@ import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.util.entry.BlockEntry;
 
 import net._doc.createworkers.CreateWorkers;
-import net._doc.createworkers.content.blocks.keypunch.KeypunchBlock;
+import net._doc.createworkers.blocks.keypunch.KeypunchBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.common.Tags;
@@ -20,7 +20,7 @@ public class CWBlocks {
             .properties(p -> p.noOcclusion().mapColor(MapColor.PODZOL)).transform(TagGen.pickaxeOnly()).transform(b -> b.tag(Tags.Blocks.NEEDS_NETHERITE_TOOL)).item().build()
             .register();
     
-    public static final BlockEntry<KeypunchBlock> KEYPUNCH = CreateWorkers.REGISTRATE.block("keypunch", KeypunchBlock::new).initialProperties(SharedProperties::softMetal)
+    public static final BlockEntry<KeypunchBlock> BASIC_WORKER_BODY = CreateWorkers.REGISTRATE.block("keypunch", KeypunchBlock::new).initialProperties(SharedProperties::softMetal)
             .properties(p -> p.noOcclusion().mapColor(MapColor.COLOR_YELLOW)).blockstate(BlockStateGen.horizontalBlockProvider(true)).transform(axeOrPickaxe()).item()
             .transform(customItemModel()).register();
     

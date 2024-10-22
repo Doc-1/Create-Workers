@@ -6,8 +6,8 @@ import javax.annotation.Nullable;
 
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 
-import net._doc.createworkers.content.logic.torque.TorquePower;
-import net._doc.createworkers.entities.controller.actions.MoveToVecAction;
+import net._doc.createworkers.torque.TorquePower;
+import net._doc.createworkers.worker_interactions.controller.actions.MoveToVecAction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;

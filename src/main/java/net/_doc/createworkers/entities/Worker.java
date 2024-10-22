@@ -5,7 +5,7 @@ import java.util.List;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.utility.Lang;
 
-import net._doc.createworkers.content.logic.torque.TorquePower;
+import net._doc.createworkers.torque.TorquePower;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -39,7 +39,6 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
     @Override
     public void tick() {
         super.tick();
-        // this.tickLerp();
         this.controller.tick();
         this.move(MoverType.SELF, new Vec3(0, -0.4D, 0));
         if (isJammmed) {
