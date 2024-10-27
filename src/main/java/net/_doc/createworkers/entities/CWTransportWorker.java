@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 
 import net._doc.createworkers.torque.TorquePower;
-import net._doc.createworkers.worker_interactions.controller.actions.MoveAction;
+import net._doc.createworkers.worker_interactions.controller.actions.MoveToVecAction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -22,6 +22,7 @@ import net.minecraft.world.entity.vehicle.ContainerEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public class CWTransportWorker extends Worker implements IHaveGoggleInformation, ContainerEntity {
     
@@ -75,18 +76,18 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
     
     @Override
     public void setControllerActions() {
-        // this.controller.add(new MoveToVecAction(new Vec3(242, 0, -24)));
+        //  this.controller.add(new MoveToVecAction(new Vec3(242, 0, -24)));
         
-        this.controller.add(new MoveAction(this, 1.125));
+        // this.controller.add(new MoveAction(this, 1.125));
         
-        // this.controller.add(new MoveToVecAction(this, new Vec3(246.5, 0, -7.5)));
-        /* this.controller.add(new TransporterTransferAction(this, true));
+        //this.controller.add(new MoveToVecAction(this, new Vec3(246.5, 0, -7.5)));
+        // this.controller.add(new TransporterTransferAction(this, true));
         this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -24.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -23.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -13.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -10.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -10.5)));
-        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -8.5)));*/
+        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -8.5)));
     }
     
     @Override

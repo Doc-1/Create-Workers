@@ -132,6 +132,6 @@ public class MoveToVecAction extends Action {
     private boolean hasReachedDistance() {
         double distance = new BigDecimal(this.getEntity().position().distanceTo(new Vec3(this.destinationGoal.x, this.getEntity().position().y, this.destinationGoal.z)))
                 .setScale(3, RoundingMode.CEILING).doubleValue();
-        return distance < this.travelRate;
+        return this.travelRate >= distance && distance >= distance - this.travelRate;
     }
 }
