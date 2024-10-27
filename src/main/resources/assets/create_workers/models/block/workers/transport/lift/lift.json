@@ -1,0 +1,10 @@
+{
+	"parent": "block/block",
+	"loader": "forge:obj",
+	"flip_v": true,
+	"model": "create_workers:models/block/workers/transport/lift/lift.obj",
+	"textures": {
+		"0": "create_workers:block/workers/transport/lift",
+		"particle": "create:block/dark_metal_block"
+	}
+}

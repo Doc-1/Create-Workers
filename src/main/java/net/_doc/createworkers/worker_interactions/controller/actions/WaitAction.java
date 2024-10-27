@@ -21,7 +21,7 @@ public class WaitAction extends Action {
 	}
 
 	@Override
-	public boolean tick() {
+	public boolean shouldContinue() {
 		return false;
 	}
 

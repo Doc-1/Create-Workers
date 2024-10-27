@@ -1,9 +1,11 @@
-package net._doc.createworkers.worker_interactions;
+package net._doc.createworkers.registeries;
 
 import java.util.function.Function;
 
 import com.simibubi.create.Create;
 
+import net._doc.createworkers.worker_interactions.WorkerInteractionPoint;
+import net._doc.createworkers.worker_interactions.WorkerInteractionPointType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;

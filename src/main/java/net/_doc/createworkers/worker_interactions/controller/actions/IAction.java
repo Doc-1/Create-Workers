@@ -5,7 +5,7 @@ public interface IAction {
 		WAIT, MOVE, ROTATE, INTEREACT;
 	}
 
-	public boolean tick();
+	public boolean shouldContinue();
 
 	public void start();
 

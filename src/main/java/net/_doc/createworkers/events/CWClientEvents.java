@@ -41,7 +41,6 @@ public class CWClientEvents {
                 event.setCanceled(true);
                 event.setCancellationResult(InteractionResult.SUCCESS);
             }
-        
     }
     
     @SubscribeEvent
@@ -58,7 +57,6 @@ public class CWClientEvents {
             ItemStack useItem = event.getItem();
             if (useItem.getItem() instanceof IItemFinishUseListener item)
                 item.onItemFinishUse(player, level, useItem, lookingAt);
-            
         }
     }
     

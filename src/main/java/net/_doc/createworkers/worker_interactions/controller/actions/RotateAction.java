@@ -22,7 +22,7 @@ public class RotateAction extends Action {
     }
     
     @Override
-    public boolean tick() {
+    public boolean shouldContinue() {
         return rotationTraveled < rotation;
     }
     

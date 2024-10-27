@@ -4,7 +4,7 @@ import com.jozufozu.flywheel.backend.instancing.InstancedRenderRegistry;
 import com.mojang.logging.LogUtils;
 
 import net._doc.createworkers.CreateWorkers;
-import net._doc.createworkers.entities.CWFlywheelInstanceTest;
+import net._doc.createworkers.entities.CWTransportWorkerInstance;
 import net._doc.createworkers.items.goggles.AdditionalGoggleOverlayRenderer;
 import net._doc.createworkers.registeries.CWEntities;
 import net._doc.createworkers.registeries.CWEntityLayerDefinition;
@@ -21,7 +21,7 @@ public class CWClientModEvents {
     
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        InstancedRenderRegistry.configure(CWEntities.CW_TEST.get()).factory(CWFlywheelInstanceTest::new).alwaysSkipRender().apply();
+        InstancedRenderRegistry.configure(CWEntities.CW_TEST.get()).factory(CWTransportWorkerInstance::new).alwaysSkipRender().apply();
     }
     
     @SubscribeEvent

@@ -36,6 +36,10 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
         return 0.42F;
     }
     
+    public void onUpdate() {
+        
+    }
+    
     @Override
     public void tick() {
         super.tick();
@@ -56,6 +60,7 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
             stuckTicks = 0;
             alarmTicks = 0;
         }
+        onUpdate();
     }
     
     public abstract TorquePower setTorquePower();

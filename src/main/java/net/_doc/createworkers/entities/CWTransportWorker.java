@@ -7,11 +7,10 @@ import javax.annotation.Nullable;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 
 import net._doc.createworkers.torque.TorquePower;
-import net._doc.createworkers.worker_interactions.controller.actions.MoveToVecAction;
+import net._doc.createworkers.worker_interactions.controller.actions.MoveAction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -22,29 +21,51 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.ContainerEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
 
-public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformation, ContainerEntity {
+public class CWTransportWorker extends Worker implements IHaveGoggleInformation, ContainerEntity {
     
     private NonNullList<ItemStack> itemStacks = NonNullList.withSize(20, ItemStack.EMPTY);
     private float chasingVelocity = 0;
     private float independentAngle = 0;
     
-    public CWFlywheelEntityTest(EntityType<? extends Entity> pEntityType, Level pLevel) {
+    private float liftVelocity = 0;
+    private float liftPostion = 0;
+    
+    private boolean startLiftAnim = false;
+    
+    private boolean hasVault = false;
+    
+    public CWTransportWorker(EntityType<? extends Entity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
     
-    @Override
-    public void tick() {
-        chasingVelocity += ((20 * 10 / 3f) - chasingVelocity) * .25f;
-        independentAngle += chasingVelocity;
-        super.tick();
+    public float getIndependentAngle(float partialTicks) {
+        return (independentAngle + partialTicks * chasingVelocity) / 360F;
     }
     
-    public float getIndependentAngle(float partialTicks) {
-        return (independentAngle + partialTicks * chasingVelocity) / 360;
+    public float getLiftPosition(float partialTicks) {
+        return (liftPostion + partialTicks * liftVelocity) / 10F;
+    }
+    
+    public boolean isHoldingVault() {
+        return hasVault;
+    }
+    
+    public void raiseLift() {
+        startLiftAnim = true;
+        liftVelocity = 0.5F;
+    }
+    
+    public void lowerLift() {
+        startLiftAnim = true;
+        liftVelocity = -0.5F;
+    }
+    
+    @Override
+    public void onUpdate() {
+        chasingVelocity += ((20 * 10 / 3f) - chasingVelocity) * .25f;
+        independentAngle += chasingVelocity;
     }
     
     @Override
@@ -56,16 +77,16 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
     public void setControllerActions() {
         // this.controller.add(new MoveToVecAction(new Vec3(242, 0, -24)));
         
-        this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -16.5), 20));
+        this.controller.add(new MoveAction(this, 1.125));
         
         // this.controller.add(new MoveToVecAction(this, new Vec3(246.5, 0, -7.5)));
-        
-        this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -24.5), 80));
-        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -23.5), 0));
-        this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -13.5), 0));
-        this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -10.5), 0));
-        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -10.5), 0));
-        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -8.5), 0));
+        /* this.controller.add(new TransporterTransferAction(this, true));
+        this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -24.5)));
+        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -23.5)));
+        this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -13.5)));
+        this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -10.5)));
+        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -10.5)));
+        this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -8.5)));*/
     }
     
     @Override
@@ -80,36 +101,25 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
     
     @Override
     public ItemStack getItem(int pSlot) {
-        // TODO Auto-generated method stub
-        return this.getItemStacks().get(pSlot);
+        return ItemStack.EMPTY;
     }
     
     @Override
     public ItemStack removeItem(int pSlot, int pAmount) {
-        return ContainerHelper.removeItem(this.getItemStacks(), pSlot, pAmount);
+        return ItemStack.EMPTY;
     }
     
     @Override
     public ItemStack removeItemNoUpdate(int pSlot) {
-        ItemStack itemstack = this.getItemStacks().get(pSlot);
-        if (itemstack.isEmpty())
-            return ItemStack.EMPTY;
-        else {
-            this.getItemStacks().set(pSlot, ItemStack.EMPTY);
-            return itemstack;
-        }
+        return ItemStack.EMPTY;
     }
     
     @Override
-    public void setItem(int pSlot, ItemStack pStack) {
-        this.getItemStacks().set(pSlot, pStack);
-        if (!pStack.isEmpty() && pStack.getCount() > this.getMaxStackSize())
-            pStack.setCount(this.getMaxStackSize());
-    }
+    public void setItem(int pSlot, ItemStack pStack) {}
     
     @Override
     public SlotAccess getSlot(int pSlot) {
-        return this.getChestVehicleSlot(pSlot);
+        return SlotAccess.NULL;
     }
     
     @Override
@@ -136,8 +146,7 @@ public class CWFlywheelEntityTest extends Worker implements IHaveGoggleInformati
     @Override
     protected void destroy(DamageSource pDamageSource) {
         super.destroy(pDamageSource);
-        if (this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS))
-            Containers.dropContents(this.level(), this, this);
+        Containers.dropContents(this.level(), this, this);
     }
     
     @Override

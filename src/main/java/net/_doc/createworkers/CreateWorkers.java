@@ -12,7 +12,7 @@ import net._doc.createworkers.registeries.CWCreativeModeTab;
 import net._doc.createworkers.registeries.CWEntities;
 import net._doc.createworkers.registeries.CWGui;
 import net._doc.createworkers.registeries.CWItems;
-import net._doc.createworkers.worker_interactions.CWWorkerInteractionPointTypes;
+import net._doc.createworkers.registeries.CWWorkerInteractionPointTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
