@@ -37,11 +37,10 @@ public class MoveToVecAction extends Action {
             rotationTraveled = 0;
         }
         if (distanceGoal == null) {
-            this.setDeltaMovement(0.15);
+            this.setDeltaMovement(0.1);
             this.updateDistance();
-            
         }
-        return !hasReachedDistance() || !reachedRotation;
+        return !hasCompleted();
     }
     
     @Override
@@ -54,16 +53,23 @@ public class MoveToVecAction extends Action {
             reachedRotation = hasReachedRotation();
             if (reachedRotation)
                 this.getEntity().setYRot(this.rotationGoal);
+            
         } else if (!hasReachedDistance()) {
+            AtomicDouble x = new AtomicDouble(this.getEntity().getYRot());
             float oldRot = this.rotationGoal;
             this.updateRotation();
-            this.setDeltaMovement(0.1);
             if (oldRot != rotationGoal) {
+                this.getEntity().setIgnoreFrames(DegreeUtils.addToAngle(x, this.getEntity().deltaRotation));
                 this.getEntity().setYRot(this.rotationGoal);
             }
+            
+            Vec3 oldPos = this.getEntity().position();
+            this.setDeltaMovement(0.1);
+            
             this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
             this.getEntity()
                     .playJammedAlarm(this.getEntity().getDeltaMovement().x == 0 && this.getEntity().getDeltaMovement().y == 0 && this.getEntity().getDeltaMovement().z == 0);
+            this.getEntity().getTorquePower().cost(this.torqueCost() * this.getEntity().position().distanceTo(oldPos));
         } else {
             this.getEntity().setDeltaMovement(0, 0, 0);
         }

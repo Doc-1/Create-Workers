@@ -80,7 +80,7 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
         
         // this.controller.add(new MoveAction(this, 1.125));
         
-        //this.controller.add(new MoveToVecAction(this, new Vec3(246.5, 0, -7.5)));
+        this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -16.5)));
         // this.controller.add(new TransporterTransferAction(this, true));
         this.controller.add(new MoveToVecAction(this, new Vec3(236.5, 0, -24.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -23.5)));
