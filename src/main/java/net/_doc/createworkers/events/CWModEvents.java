@@ -12,4 +12,5 @@ public class CWModEvents {
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         //event.put(CWEntities.CW_SMALL_TRANSPORT_ROBOT.get(), CWSmallTransportRobotEntity.createAttributes().build());
     }
+    
 }

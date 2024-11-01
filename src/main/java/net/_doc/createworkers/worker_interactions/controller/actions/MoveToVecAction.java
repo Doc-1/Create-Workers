@@ -69,7 +69,7 @@ public class MoveToVecAction extends Action {
             this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
             this.getEntity()
                     .playJammedAlarm(this.getEntity().getDeltaMovement().x == 0 && this.getEntity().getDeltaMovement().y == 0 && this.getEntity().getDeltaMovement().z == 0);
-            this.getEntity().getTorquePower().cost(this.torqueCost() * this.getEntity().position().distanceTo(oldPos));
+            this.getEntity().getTorque().tryExpanse(this.torqueCost() * this.getEntity().position().distanceTo(oldPos));
         } else {
             this.getEntity().setDeltaMovement(0, 0, 0);
         }

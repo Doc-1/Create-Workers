@@ -75,7 +75,7 @@ public class CWTransportWorkerInstance extends EntityInstance<CWTransportWorker>
         float rot, yaw, pt;
         float pos;
         double x, y, z;
-        if (!entity.getTorquePower().isHasTorque()) {
+        if (entity.getTorque() != null && !entity.getTorque().isEmpty()) {
             x = entity.getX() - partOffset().x;
             y = entity.getY() - partOffset().y;
             z = entity.getZ() - partOffset().z;

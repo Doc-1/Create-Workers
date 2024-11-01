@@ -5,7 +5,10 @@ import java.util.List;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.utility.Lang;
 
-import net._doc.createworkers.torque.TorquePower;
+import net._doc.createworkers.capabilities.torque.ITorqueStorageHandler;
+import net._doc.createworkers.capabilities.torque.TorqueStorageHandler;
+import net._doc.createworkers.registeries.CWCapability;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
@@ -22,13 +25,12 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
     private final int alarmTickDelay = 20;
     private int alarmTicks = 0;
     
-    private TorquePower torque;
+    private ITorqueStorageHandler torque;
     private boolean isJammmed;
     private boolean ignoreFrames = false;
     
     public Worker(EntityType<? extends Entity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-        this.torque = this.setTorquePower();
     }
     
     @Override
@@ -36,9 +38,7 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
         return 0.42F;
     }
     
-    public void onUpdate() {
-        
-    }
+    public void onUpdate() {}
     
     @Override
     public void tick() {
@@ -63,7 +63,10 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
         onUpdate();
     }
     
-    public abstract TorquePower setTorquePower();
+    @Override
+    protected void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+    }
     
     public void playJammedAlarm(boolean start) {
         this.isJammmed = start;
@@ -71,12 +74,12 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
     
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        Lang.text("Torque remaining:" + " " + (int) Math.ceil(getTorquePower().currentTorque)).forGoggles(tooltip);
+        Lang.text("Torque:" + " " + (int) Math.ceil(this.getTorque().getCurrentTorque()) + "/" + (int) Math.ceil(this.getTorque().getMaxTorque())).forGoggles(tooltip);
         return !isPlayerSneaking;
     }
     
-    public TorquePower getTorquePower() {
-        return torque;
+    public ITorqueStorageHandler getTorque() {
+        return this.getCapability(CWCapability.TORQUE_CAPABILITY).orElse(new TorqueStorageHandler());
     }
     
     public boolean isIgnoreFrames() {
@@ -87,4 +90,15 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
         this.ignoreFrames = ignoreFrames;
     }
     
+    @Override
+    public CompoundTag serializeNBT() {
+        System.out.println("QWER");
+        return super.serializeNBT();
+    }
+    
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        System.out.println("ZXCV");
+        super.deserializeNBT(nbt);
+    }
 }

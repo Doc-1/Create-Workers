@@ -46,16 +46,14 @@ public class MoveAction extends Action {
     
     @Override
     public void start() {
-        
         Vec3 oldPos = this.getEntity().position();
-        
-        this.setDeltaMovement(0.1);
-        this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
-        this.updateDistance();
-        this.getEntity().playJammedAlarm(this.getEntity().getDeltaMovement().x == 0 && this.getEntity().getDeltaMovement().y == 0 && this.getEntity().getDeltaMovement().z == 0);
-        
-        this.getEntity().getTorquePower().cost(this.torqueCost() * this.getEntity().position().distanceTo(oldPos));
-        
+        if (this.getEntity().getTorque().tryExpanse(this.torqueCost() * this.getEntity().position().distanceTo(oldPos))) {
+            this.setDeltaMovement(0.1);
+            this.getEntity().move(MoverType.SELF, this.getEntity().getDeltaMovement());
+            this.updateDistance();
+            this.getEntity()
+                    .playJammedAlarm(this.getEntity().getDeltaMovement().x == 0 && this.getEntity().getDeltaMovement().y == 0 && this.getEntity().getDeltaMovement().z == 0);
+        }
     }
     
     @Override

@@ -6,8 +6,8 @@ import javax.annotation.Nullable;
 
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 
-import net._doc.createworkers.torque.TorquePower;
 import net._doc.createworkers.worker_interactions.controller.actions.MoveToVecAction;
+import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -23,8 +23,15 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class CWTransportWorker extends Worker implements IHaveGoggleInformation, ContainerEntity {
+    
+    private LazyOptional<IItemHandlerModifiable> itemHandler = LazyOptional.of(() -> new InvWrapper(this));
     
     private NonNullList<ItemStack> itemStacks = NonNullList.withSize(20, ItemStack.EMPTY);
     private float chasingVelocity = 0;
@@ -67,6 +74,7 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
     public void onUpdate() {
         chasingVelocity += ((20 * 10 / 3f) - chasingVelocity) * .25f;
         independentAngle += chasingVelocity;
+        super.onUpdate();
     }
     
     @Override
@@ -88,11 +96,6 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
         this.controller.add(new MoveToVecAction(this, new Vec3(248.5, 0, -10.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -10.5)));
         this.controller.add(new MoveToVecAction(this, new Vec3(242.5, 0, -8.5)));
-    }
-    
-    @Override
-    public TorquePower setTorquePower() {
-        return new TorquePower(500, 2);
     }
     
     @Override
@@ -143,9 +146,9 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
         super.remove(pReason);
     }
     
-    @SuppressWarnings("resource")
     @Override
     protected void destroy(DamageSource pDamageSource) {
+        
         super.destroy(pDamageSource);
         Containers.dropContents(this.level(), this, this);
     }
@@ -176,13 +179,9 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
     @Override
     public void setLootTableSeed(long pLootTableSeed) {}
     
-    // Forge Start
-    private net.minecraftforge.common.util.LazyOptional<?> itemHandler = net.minecraftforge.common.util.LazyOptional
-            .of(() -> new net.minecraftforge.items.wrapper.InvWrapper(this));
-    
     @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.core.Direction facing) {
-        if (capability == net.minecraftforge.common.capabilities.ForgeCapabilities.ITEM_HANDLER && this.isAlive())
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (capability == ForgeCapabilities.ITEM_HANDLER && this.isAlive())
             return itemHandler.cast();
         return super.getCapability(capability, facing);
     }
@@ -196,7 +195,7 @@ public class CWTransportWorker extends Worker implements IHaveGoggleInformation,
     @Override
     public void reviveCaps() {
         super.reviveCaps();
-        itemHandler = net.minecraftforge.common.util.LazyOptional.of(() -> new net.minecraftforge.items.wrapper.InvWrapper(this));
+        itemHandler = LazyOptional.of(() -> new InvWrapper(this));
     }
     
     public NonNullList<ItemStack> getItemStacks() {

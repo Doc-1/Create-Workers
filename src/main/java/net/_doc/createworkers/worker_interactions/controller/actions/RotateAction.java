@@ -37,7 +37,7 @@ public class RotateAction extends Action {
         rotationTraveled += this.getEntity().deltaRotation;
         int mod = rotationDir.equals(RotationDirection.CLOCKWISE) ? 1 : -1;
         this.getEntity().setYRot(rotationTraveled * mod);
-        this.getEntity().getTorquePower().cost(this.torqueCost() * (this.getEntity().deltaRotation * 0.0072));
+        this.getEntity().getTorque().tryExpanse(this.torqueCost() * (this.getEntity().deltaRotation * 0.0072));
     }
     
     @Override

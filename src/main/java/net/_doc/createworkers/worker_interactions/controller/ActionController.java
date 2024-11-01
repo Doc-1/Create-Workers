@@ -29,7 +29,7 @@ public class ActionController {
     public boolean tick() {
         if (steps.size() > selectedIndex) {
             Action action = steps.get(selectedIndex);
-            if (action.getEntity().getTorquePower().hasEnoughTorque(action.torqueCost())) {
+            if (action.getEntity().getTorque() != null && action.getEntity().getTorque().hasEnoughTorque(action.torqueCost())) {
                 if (action.shouldContinue())
                     action.start();
                 if (action.hasCompleted()) {
