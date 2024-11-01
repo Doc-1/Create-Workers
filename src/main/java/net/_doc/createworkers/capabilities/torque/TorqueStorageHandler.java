@@ -1,21 +1,14 @@
 package net._doc.createworkers.capabilities.torque;
 
-import net._doc.createworkers.entities.Worker;
 import net.minecraft.nbt.CompoundTag;
 
 public class TorqueStorageHandler implements ITorqueStorageHandler {
     
     private double maxTorque;
     private double currentTorque;
-    private Worker worker;
     
     public TorqueStorageHandler() {
         this(0, 0);
-    }
-    
-    public TorqueStorageHandler(Worker worker) {
-        this(0, 0);
-        this.worker = worker;
     }
     
     public TorqueStorageHandler(double maxTorque) {
@@ -55,7 +48,7 @@ public class TorqueStorageHandler implements ITorqueStorageHandler {
     @Override
     public boolean tryExpanse(double expense) {
         double ex;
-        if ((ex = expense - this.currentTorque) >= 0) {
+        if ((ex = this.currentTorque - expense) >= 0) {
             this.setTorque(ex);
             return true;
         }
@@ -64,7 +57,6 @@ public class TorqueStorageHandler implements ITorqueStorageHandler {
     
     @Override
     public CompoundTag serializeNBT() {
-        System.out.println("dasd");
         CompoundTag tag = new CompoundTag();
         tag.putDouble("max_torque", maxTorque);
         tag.putDouble("current_torque", currentTorque);
@@ -74,7 +66,6 @@ public class TorqueStorageHandler implements ITorqueStorageHandler {
     
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        System.out.println("12312e");
         if (nbt.contains("max_torque"))
             maxTorque = nbt.getDouble("max_torque");
         if (nbt.contains("current_torque"))

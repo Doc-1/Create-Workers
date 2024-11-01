@@ -1,10 +1,10 @@
 package net._doc.createworkers;
 
-import org.slf4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
-import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 
+import net._doc.createworkers.packets.TorqueSyncToClientPacket;
 import net._doc.createworkers.registeries.CWBlockEntities;
 import net._doc.createworkers.registeries.CWBlocks;
 import net._doc.createworkers.registeries.CWClient;
@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import team.creative.creativecore.common.network.CreativeNetwork;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(CreateWorkers.ID)
@@ -34,9 +35,10 @@ public class CreateWorkers {
     // Define mod id in a common place for everything to reference
     public static final String ID = "create_workers";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(ID);
     
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ID);
+    public static final CreativeNetwork NETWORK = new CreativeNetwork(1, LOGGER, new ResourceLocation(ID, "main"));
     
     public CreateWorkers() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -62,7 +64,9 @@ public class CreateWorkers {
         return new ResourceLocation(ID, path);
     }
     
-    private void commonSetup(final FMLCommonSetupEvent event) {}
+    private void commonSetup(final FMLCommonSetupEvent event) {
+        NETWORK.registerType(TorqueSyncToClientPacket.class, TorqueSyncToClientPacket::new);
+    }
     
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {}

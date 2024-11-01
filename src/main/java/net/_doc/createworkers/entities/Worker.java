@@ -5,11 +5,14 @@ import java.util.List;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.utility.Lang;
 
+import net._doc.createworkers.CreateWorkers;
 import net._doc.createworkers.capabilities.torque.ITorqueStorageHandler;
 import net._doc.createworkers.capabilities.torque.TorqueStorageHandler;
+import net._doc.createworkers.packets.TorqueSyncToClientPacket;
 import net._doc.createworkers.registeries.CWCapability;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -78,8 +81,21 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
         return !isPlayerSneaking;
     }
     
+    @SuppressWarnings("resource")
     public ITorqueStorageHandler getTorque() {
-        return this.getCapability(CWCapability.TORQUE_CAPABILITY).orElse(new TorqueStorageHandler());
+        if (!this.level().isClientSide) {
+            if (this.torque == null) {
+                this.torque = this.getCapability(CWCapability.TORQUE_CAPABILITY).orElse(new TorqueStorageHandler(500));
+                for (Entity entity : this.level().players())
+                    if (entity.distanceToSqr(this) < 4096.0D)
+                        CreateWorkers.NETWORK.sendToClient(new TorqueSyncToClientPacket(torque, this.getId()), (ServerPlayer) entity);
+            }
+        }
+        return this.torque;
+    }
+    
+    public void setTorque(ITorqueStorageHandler torque) {
+        this.torque = torque;
     }
     
     public boolean isIgnoreFrames() {
@@ -92,13 +108,11 @@ public abstract class Worker extends NonLivingEntity implements IHaveGoggleInfor
     
     @Override
     public CompoundTag serializeNBT() {
-        System.out.println("QWER");
         return super.serializeNBT();
     }
     
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        System.out.println("ZXCV");
         super.deserializeNBT(nbt);
     }
 }
